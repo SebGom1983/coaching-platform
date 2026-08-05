@@ -21,4 +21,5 @@ export const dict = {
   nextLesson: { es: "Próxima clase", en: "Next lesson" },
   homework: { es: "Tarea de esta semana", en: "This week's homework" },
   progress: { es: "Tu progreso", en: "Your progress" },
+  logout: { es: "Cerrar sesión", en: "Log out" },
 };

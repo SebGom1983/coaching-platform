@@ -1,5 +1,6 @@
 import "./globals.css";
 import { LangProvider } from "@/lib/i18n";
+import { AuthProvider } from "@/lib/auth-context";
 import { dict } from "./dictionary";
 
 export const metadata = {
@@ -11,7 +12,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <body className="font-sans">
-        <LangProvider dict={dict}>{children}</LangProvider>
+        <AuthProvider>
+          <LangProvider dict={dict}>{children}</LangProvider>
+        </AuthProvider>
       </body>
     </html>
   );

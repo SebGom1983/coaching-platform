@@ -18,7 +18,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-4">
             <LangToggle />
-            <a href="#book" className="bg-gold text-ink text-sm font-medium px-5 py-2.5 rounded-lg">
+            <a href="/login" className="bg-gold text-ink text-sm font-medium px-5 py-2.5 rounded-lg">
               {t("bookLesson")}
             </a>
           </div>
@@ -34,7 +34,7 @@ export default function Home() {
             <h1 className="font-serif text-4xl md:text-5xl leading-tight mb-6">{t("heroTitle")}</h1>
             <p className="text-chalkDim max-w-md mb-9">{t("heroLead")}</p>
             <div className="flex gap-4">
-              <a href="#placement" className="bg-gold text-ink text-sm font-medium px-5 py-2.5 rounded-lg">
+              <a href="/login" className="bg-gold text-ink text-sm font-medium px-5 py-2.5 rounded-lg">
                 {t("ctaPlacement")}
               </a>
               <a href="#method" className="border border-white/10 text-sm font-medium px-5 py-2.5 rounded-lg">
@@ -49,9 +49,6 @@ export default function Home() {
                 AI-GENERATED
               </span>
               <span className="font-mono text-xs text-muted">LESSON 08</span>
-            </div>
-            <div className="font-serif text-lg mb-3">
-              {t("nextLesson") === "Next lesson" ? "This week's materials" : "Tu material de esta semana"}
             </div>
             {[
               ["Vocabulario de viajes / Travel vocabulary", "90%"],
@@ -118,8 +115,7 @@ export default function Home() {
                 <h4 className="font-serif text-xl mb-1">{p.name}</h4>
                 <div className="font-mono text-2xl text-gold my-3">{p.lessons} lessons</div>
                 <a
-                  href="#book"
-                  id={p.featured ? "book" : undefined}
+                  href="/login"
                   className={`mt-auto text-sm font-medium px-5 py-2.5 rounded-lg text-center ${
                     p.featured ? "bg-gold text-ink" : "border border-white/10"
                   }`}

@@ -1,38 +1,72 @@
-# Coaching Platform — proyecto base
+# Coaching Platform
 
-Next.js + React + TypeScript + Tailwind, listo para conectar a Firebase.
-Incluye: sitio de marketing (`/`) y portal de estudiante de ejemplo (`/portal`), con datos de muestra.
+Next.js + React + TypeScript + Tailwind + Firebase (Auth + Firestore).
 
-## Ver esto funcionando en internet, gratis, SIN instalar nada en tu computador
+## Qué cambió en esta versión
 
-**Paso 1 — Sube esta carpeta a GitHub**
-1. Ve a github.com, crea una cuenta si no tienes (gratis).
-2. Crea un repositorio nuevo (botón "New repository"), ponle un nombre como `coaching-platform`.
-3. En la página del repo vacío, usa la opción "uploading an existing file" y arrastra todos los archivos de esta carpeta.
+- `/login` — login real con correo y contraseña (Firebase Auth).
+- `/portal` — ahora está protegido: si no has iniciado sesión te manda a `/login`.
+  Ya no muestra datos de "Camila" de ejemplo — lee los datos reales del estudiante
+  que inició sesión, desde Firestore.
 
-**Paso 2 — Conecta ese repositorio a Vercel**
-1. Ve a vercel.com y crea cuenta gratis con tu usuario de GitHub (botón "Continue with GitHub").
-2. Click "Add New" → "Project".
-3. Selecciona el repositorio `coaching-platform` que acabas de subir.
-4. Vercel detecta automáticamente que es Next.js — no cambies nada, solo dale "Deploy".
-5. En 1-2 minutos tendrás una URL real: `coaching-platform-tuusuario.vercel.app`.
+## Paso 1 — Crea tu proyecto de Firebase (gratis, 5 minutos)
 
-Eso es todo. Cada vez que subas cambios a GitHub, Vercel actualiza el sitio solo.
+1. Ve a console.firebase.google.com, inicia sesión con tu cuenta de Google.
+2. "Add project" → ponle un nombre (ej. `seb-coaching`) → sigue los pasos (puedes
+   desactivar Google Analytics, no lo necesitas) → "Create project".
+3. Adentro del proyecto, en el menú de la izquierda: **Build → Authentication**
+   → "Get started" → pestaña "Sign-in method" → habilita **"Email/Password"**.
+4. Menú izquierdo: **Build → Firestore Database** → "Create database" → elige
+   modo **"Start in test mode"** por ahora (lo ajustamos después) → elige una
+   ubicación cercana (ej. `us-central`) → "Enable".
+5. Menú izquierdo, ícono de engranaje ⚙️ → **Project settings** → baja hasta
+   "Your apps" → clic en el ícono `</>` (Web) → dale un nombre → "Register app".
+   Te muestra un bloque de código con `apiKey`, `authDomain`, etc. — esos son
+   tus valores.
 
-## Cuándo conectar Firebase (más adelante)
+## Paso 2 — Pega esos valores en Vercel
 
-Ahora mismo el sitio funciona con datos de ejemplo "quemados" en el código (`app/portal/page.tsx`).
-Cuando quieras datos reales (login de estudiantes, progreso guardado, etc.):
+1. Ve a tu proyecto en vercel.com → pestaña **Settings** → **Environment Variables**.
+2. Agrega una por una, con estos nombres exactos (usando los valores que copiaste):
+   - `NEXT_PUBLIC_FIREBASE_API_KEY`
+   - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+   - `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+   - `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`
+   - `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`
+   - `NEXT_PUBLIC_FIREBASE_APP_ID`
+3. Después de agregarlas, ve a la pestaña **Deployments**, abre el menú "..." del
+   último deploy → **"Redeploy"** (para que tome las nuevas variables).
 
-1. Crea un proyecto gratis en console.firebase.google.com.
-2. Copia las llaves que te da ("SDK config") y pégalas en Vercel → tu proyecto → Settings → Environment Variables, usando los mismos nombres que ves en `.env.example`.
-3. Ahí es donde vale la pena tener Claude Code — para escribir la lógica real de login, guardar datos en Firestore, y las Cloud Functions que llaman a OpenAI y Stripe/Wompi.
+## Paso 3 — Crea las cuentas de tus 3 estudiantes
 
-## Correrlo en tu computador (opcional, solo si luego instalas Node.js)
+Por ahora esto se hace a mano (sin pantalla de "crear cuenta" todavía):
+
+1. Firebase console → **Authentication** → pestaña "Users" → **"Add user"**.
+   Ponle el correo y una contraseña temporal a cada uno de tus 3 estudiantes.
+2. Copia el **User UID** que le asigna (una cadena larga de letras y números)
+   a cada uno.
+3. Ve a **Firestore Database** → **"Start collection"** → nombre de la
+   colección: `students`.
+4. Para el "Document ID", pega el **UID** de ese estudiante (importante: el ID
+   del documento debe ser exactamente igual al UID de Authentication).
+5. Agrega estos campos al documento (elige el tipo correcto en Firestore):
+
+   | Campo | Tipo | Ejemplo |
+   |---|---|---|
+   | `name` | string | `Camila` |
+   | `nextLesson` | map | `{ title: "Business English", date: "18 julio", time: "4:00 PM" }` |
+   | `package` | map | `{ total: 10, used: 6 }` |
+   | `homework` | array de maps | `[{ title: "Present Perfect", status: "done", note: "..." }]` |
+   | `progress` | map | `{ Gramática: 82, Escucha: 71, Habla: 58 }` |
+
+6. Repite para cada estudiante, con su propio UID como Document ID.
+
+Cuando cada estudiante entre a `/login` con su correo/contraseña, va a ver
+automáticamente sus propios datos — nadie ve los datos de otro.
+
+## Correrlo en tu computador (opcional)
 
 ```
 npm install
 npm run dev
 ```
-
-Abre http://localhost:3000
