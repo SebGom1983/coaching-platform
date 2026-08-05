@@ -1,0 +1,41 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isTeacher() {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "teacher";
+    }
+
+    // users/{uid} — profile doc. Everyone can read their own profile,
+    // the teacher can read everyone's. Only the owner can create their
+    // own doc on signup; role can never be changed from the client
+    // (change it manually in the Firebase console when needed).
+    match /users/{uid} {
+      allow read: if isSignedIn() && (request.auth.uid == uid || isTeacher());
+      allow create: if isSignedIn() && request.auth.uid == uid &&
+        request.resource.data.role == "student";
+      allow update: if isTeacher();
+      allow delete: if false;
+    }
+
+    // materials/{id} — content assigned to a student.
+    // Teacher: full read/write on anything.
+    // Student: can read only their own materials, and may only toggle
+    // the "status" field (e.g. marking homework done) on their own docs.
+    match /materials/{materialId} {
+      allow read: if isSignedIn() &&
+        (isTeacher() || resource.data.studentId == request.auth.uid);
+      allow create, delete: if isTeacher();
+      allow update: if isTeacher() ||
+        (isSignedIn() &&
+         resource.data.studentId == request.auth.uid &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly(["status"]));
+    }
+  }
+}
