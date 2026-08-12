@@ -80,7 +80,7 @@ export default function Portal() {
               {t("welcomeBack")}
             </span>
             <h1 className="font-serif text-3xl">
-              Hola, {profile?.name || ""} <span className="text-gold">👋</span>
+              Hi, {profile?.name || ""} <span className="text-gold">👋</span>
             </h1>
           </div>
         </div>
