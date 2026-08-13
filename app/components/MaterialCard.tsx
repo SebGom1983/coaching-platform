@@ -2,19 +2,20 @@
 import { useEffect, useState } from "react";
 import { Material, MaterialType } from "@/lib/firebase";
 import { getLinkPreview } from "@/lib/link-preview";
+import { useLang } from "@/lib/i18n";
 
-const typeLabel: Record<MaterialType, string> = {
-  video: "Video",
-  link: "Enlace / recurso",
-  text: "Nota",
-  homework: "Tarea",
+const typeKey: Record<MaterialType, string> = {
+  video: "typeVideo",
+  link: "typeLink",
+  text: "typeText",
+  homework: "typeHomework",
 };
 
 function domainOf(url: string) {
   try {
     return new URL(url).hostname.replace(/^www\./, "");
   } catch {
-    return "Abrir enlace";
+    return "";
   }
 }
 
@@ -28,6 +29,7 @@ export default function MaterialCard({
   onDelete?: (id: string) => void;
 }) {
   const [thumbnail, setThumbnail] = useState<string | null>(null);
+  const { t } = useLang();
   const isHomework = material.type === "homework";
   const isDone = material.status === "done";
 
@@ -55,7 +57,7 @@ export default function MaterialCard({
       <div className="p-5">
         <div className="flex items-center justify-between gap-3 mb-3">
           <span className="font-mono text-[11px] uppercase tracking-wide text-sageSoft bg-sage/15 px-2.5 py-1 rounded-full">
-            {typeLabel[material.type]}
+            {t(typeKey[material.type])}
           </span>
 
           {isHomework && onToggleHomework && (
@@ -65,7 +67,7 @@ export default function MaterialCard({
                 isDone ? "bg-sage/20 text-sageSoft" : "bg-gold/15 text-gold"
               }`}
             >
-              {isDone ? "HECHO ✓" : "PENDIENTE"}
+              {isDone ? t("statusDone") : t("statusPending")}
             </button>
           )}
         </div>
@@ -84,7 +86,7 @@ export default function MaterialCard({
               <polyline points="15 3 21 3 21 9" />
               <line x1="10" y1="14" x2="21" y2="3" />
             </svg>
-            {domainOf(material.url)}
+            {domainOf(material.url) || t("openLink")}
           </a>
         )}
 

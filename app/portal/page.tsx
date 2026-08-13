@@ -39,11 +39,11 @@ export default function Portal() {
   }
 
   if (authLoading || !user) {
-    return <div className="min-h-screen flex items-center justify-center text-chalkDim">Cargando...</div>;
+    return <div className="min-h-screen flex items-center justify-center text-chalkDim">{t("loading")}</div>;
   }
 
   if (loadingData) {
-    return <div className="min-h-screen flex items-center justify-center text-chalkDim">Cargando tus datos...</div>;
+    return <div className="min-h-screen flex items-center justify-center text-chalkDim">{t("loadingData")}</div>;
   }
 
   const homework = materials.filter((m) => m.type === "homework");
@@ -56,7 +56,7 @@ export default function Portal() {
           Seb<span className="text-gold">.</span> Coaching
         </div>
         <nav className="flex flex-col gap-1 flex-1 text-sm">
-          <a className="px-3 py-2.5 rounded-lg bg-gold/10 text-gold font-medium">Panel</a>
+          <a className="px-3 py-2.5 rounded-lg bg-gold/10 text-gold font-medium">{t("panel")}</a>
         </nav>
         <button
           onClick={() => signOut(auth)}
@@ -74,14 +74,14 @@ export default function Portal() {
               {t("welcomeBack")}
             </span>
             <h1 className="font-serif text-3xl">
-              Hola, {profile?.name || ""} <span className="text-gold">👋</span>
+              {t("greeting")} {profile?.name || ""} <span className="text-gold">👋</span>
             </h1>
           </div>
         </div>
 
         <h2 className="font-serif text-lg mb-4">{t("homework")}</h2>
         {homework.length === 0 ? (
-          <p className="text-chalkDim text-sm mb-9">Todavía no tienes tareas asignadas.</p>
+          <p className="text-chalkDim text-sm mb-9">{t("noHomework")}</p>
         ) : (
           <div className="grid md:grid-cols-2 gap-4 mb-9">
             {homework.map((h) => (
@@ -90,9 +90,9 @@ export default function Portal() {
           </div>
         )}
 
-        <h2 className="font-serif text-lg mb-4">Material</h2>
+        <h2 className="font-serif text-lg mb-4">{t("material")}</h2>
         {resources.length === 0 ? (
-          <p className="text-chalkDim text-sm">Todavía no tienes material asignado.</p>
+          <p className="text-chalkDim text-sm">{t("noMaterial")}</p>
         ) : (
           <div className="grid md:grid-cols-2 gap-4">
             {resources.map((m) => (
