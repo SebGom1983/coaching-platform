@@ -14,13 +14,7 @@ import {
   Material,
   MaterialType,
 } from "@/lib/firebase";
-
-const typeLabel: Record<MaterialType, string> = {
-  video: "Video",
-  link: "Enlace / recurso",
-  text: "Nota / texto",
-  homework: "Tarea",
-};
+import MaterialCard from "../../components/MaterialCard";
 
 export default function StudentEditor() {
   const { user, profile, loading: authLoading } = useAuth();
@@ -164,35 +158,9 @@ export default function StudentEditor() {
         {materials.length === 0 ? (
           <p className="text-chalkDim text-sm">Todavía no le has asignado nada a este alumno.</p>
         ) : (
-          <div className="flex flex-col gap-3">
+          <div className="grid md:grid-cols-2 gap-4">
             {materials.map((m) => (
-              <div key={m.id} className="bg-card border border-white/10 rounded-xl p-5">
-                <div className="flex justify-between items-start gap-4">
-                  <div className="min-w-0">
-                    <span className="font-mono text-xs text-sageSoft bg-sage/15 px-2.5 py-0.5 rounded-full">
-                      {typeLabel[m.type]}
-                    </span>
-                    <h4 className="font-serif mt-2">{m.title}</h4>
-                    {m.url && (
-                      <a
-                        href={m.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gold text-sm break-all"
-                      >
-                        {m.url}
-                      </a>
-                    )}
-                    {m.description && <p className="text-chalkDim text-sm mt-1">{m.description}</p>}
-                  </div>
-                  <button
-                    onClick={() => handleDelete(m.id)}
-                    className="text-xs text-muted hover:text-red-400 shrink-0"
-                  >
-                    Eliminar
-                  </button>
-                </div>
-              </div>
+              <MaterialCard key={m.id} material={m} onDelete={handleDelete} />
             ))}
           </div>
         )}

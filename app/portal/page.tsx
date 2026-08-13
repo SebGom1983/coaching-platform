@@ -3,16 +3,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { useAuth } from "@/lib/auth-context";
-import { auth, getStudentMaterials, setMaterialStatus, Material, MaterialType } from "@/lib/firebase";
+import { auth, getStudentMaterials, setMaterialStatus, Material } from "@/lib/firebase";
 import { useLang } from "@/lib/i18n";
 import LangToggle from "../components/LangToggle";
-
-const typeLabel: Record<MaterialType, string> = {
-  video: "Video",
-  link: "Enlace / recurso",
-  text: "Nota",
-  homework: "Tarea",
-};
+import MaterialCard from "../components/MaterialCard";
 
 export default function Portal() {
   const { user, profile, loading: authLoading } = useAuth();
@@ -80,7 +74,7 @@ export default function Portal() {
               {t("welcomeBack")}
             </span>
             <h1 className="font-serif text-3xl">
-              Hi, {profile?.name || ""} <span className="text-gold">👋</span>
+              Hola, {profile?.name || ""} <span className="text-gold">👋</span>
             </h1>
           </div>
         </div>
@@ -91,23 +85,7 @@ export default function Portal() {
         ) : (
           <div className="grid md:grid-cols-2 gap-4 mb-9">
             {homework.map((h) => (
-              <button
-                key={h.id}
-                onClick={() => toggleHomework(h)}
-                className="text-left bg-card border border-white/10 rounded-xl p-5 hover:border-gold/40 transition"
-              >
-                <div className="flex justify-between items-center mb-2">
-                  <h4 className="font-serif">{h.title}</h4>
-                  <span
-                    className={`font-mono text-xs px-2.5 py-0.5 rounded-full ${
-                      h.status === "done" ? "bg-sage/20 text-sageSoft" : "bg-gold/15 text-gold"
-                    }`}
-                  >
-                    {h.status === "done" ? "DONE" : "PENDING"}
-                  </span>
-                </div>
-                {h.description && <p className="text-chalkDim text-sm">{h.description}</p>}
-              </button>
+              <MaterialCard key={h.id} material={h} onToggleHomework={toggleHomework} />
             ))}
           </div>
         )}
@@ -116,25 +94,9 @@ export default function Portal() {
         {resources.length === 0 ? (
           <p className="text-chalkDim text-sm">Todavía no tienes material asignado.</p>
         ) : (
-          <div className="flex flex-col gap-3">
+          <div className="grid md:grid-cols-2 gap-4">
             {resources.map((m) => (
-              <div key={m.id} className="bg-card border border-white/10 rounded-xl p-5">
-                <span className="font-mono text-xs text-sageSoft bg-sage/15 px-2.5 py-0.5 rounded-full">
-                  {typeLabel[m.type]}
-                </span>
-                <h4 className="font-serif mt-2">{m.title}</h4>
-                {m.url && (
-                  <a
-                    href={m.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gold text-sm break-all"
-                  >
-                    {m.url}
-                  </a>
-                )}
-                {m.description && <p className="text-chalkDim text-sm mt-1">{m.description}</p>}
-              </div>
+              <MaterialCard key={m.id} material={m} />
             ))}
           </div>
         )}
