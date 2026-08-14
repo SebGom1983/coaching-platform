@@ -11,7 +11,6 @@ import {
   addMaterial,
   updateMaterial,
   deleteMaterial,
-  uploadThumbnail,
   UserProfile,
   Material,
   MaterialType,
@@ -33,7 +32,6 @@ export default function StudentEditor() {
   const [url, setUrl] = useState("");
   const [description, setDescription] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState("");
-  const [uploadingThumb, setUploadingThumb] = useState(false);
   const [saving, setSaving] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -79,17 +77,6 @@ export default function StudentEditor() {
     setUrl("");
     setDescription("");
     setThumbnailUrl("");
-  }
-
-  async function handleThumbnailFile(file: File | null) {
-    if (!file) return;
-    setUploadingThumb(true);
-    try {
-      const url = await uploadThumbnail(file, studentId);
-      setThumbnailUrl(url);
-    } finally {
-      setUploadingThumb(false);
-    }
   }
 
   function handleEdit(m: Material) {
@@ -180,27 +167,16 @@ export default function StudentEditor() {
               <label className="block text-xs text-muted mb-1.5">
                 Imagen de portada (opcional — solo si el link no trae una automática)
               </label>
-              {thumbnailUrl && (
-                <div className="relative w-40 mb-2">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={thumbnailUrl} alt="" className="w-40 aspect-video object-cover rounded-lg border border-white/10" />
-                  <button
-                    type="button"
-                    onClick={() => setThumbnailUrl("")}
-                    className="absolute -top-2 -right-2 bg-ink border border-white/20 rounded-full w-5 h-5 text-xs leading-none flex items-center justify-center text-muted hover:text-red-400"
-                  >
-                    ×
-                  </button>
-                </div>
-              )}
               <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleThumbnailFile(e.target.files?.[0] || null)}
-                disabled={uploadingThumb}
-                className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:bg-gold file:text-ink file:text-xs file:font-medium"
+                type="url"
+                value={thumbnailUrl}
+                onChange={(e) => setThumbnailUrl(e.target.value)}
+                placeholder="https://... (link directo a una imagen .jpg / .png)"
+                className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
               />
-              {uploadingThumb && <p className="text-xs text-sageSoft -mt-3 mb-4">Subiendo imagen...</p>}
+              <p className="text-xs text-muted -mt-3 mb-4">
+                Tip: busca la imagen en Google → clic derecho → "Copiar dirección de imagen" → pégala aquí.
+              </p>
             </>
           )}
 
@@ -216,7 +192,7 @@ export default function StudentEditor() {
 
           <button
             type="submit"
-            disabled={saving || uploadingThumb}
+            disabled={saving}
             className="bg-gold text-ink font-medium text-sm px-5 py-2.5 rounded-lg disabled:opacity-50"
           >
             {saving ? "Guardando..." : editingId ? "Guardar cambios" : "Agregar"}

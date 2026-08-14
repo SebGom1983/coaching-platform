@@ -1,6 +1,5 @@
 import { initializeApp, getApps } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
   getFirestore,
   doc,
@@ -32,17 +31,6 @@ const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-export const storage = getStorage(app);
-
-// Uploads an image file to Firebase Storage and returns its public URL.
-// Used for manually-chosen thumbnails (e.g. a book cover) that don't come
-// automatically from a YouTube/Spotify/Vimeo link.
-export async function uploadThumbnail(file: File, studentId: string): Promise<string> {
-  const path = `thumbnails/${studentId}/${Date.now()}-${file.name}`;
-  const storageRef = ref(storage, path);
-  await uploadBytes(storageRef, file);
-  return getDownloadURL(storageRef);
-}
 
 // -----------------------------------------------------------------------
 // Users (teacher + students)
