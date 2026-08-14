@@ -31,6 +31,7 @@ export default function StudentEditor() {
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [description, setDescription] = useState("");
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [saving, setSaving] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -60,9 +61,9 @@ export default function StudentEditor() {
     if (!title.trim()) return;
     setSaving(true);
     if (editingId) {
-      await updateMaterial(editingId, { type, title, url, description });
+      await updateMaterial(editingId, { type, title, url, description, thumbnailUrl });
     } else {
-      await addMaterial(studentId, { type, title, url, description });
+      await addMaterial(studentId, { type, title, url, description, thumbnailUrl });
     }
     resetForm();
     await loadData();
@@ -75,6 +76,7 @@ export default function StudentEditor() {
     setTitle("");
     setUrl("");
     setDescription("");
+    setThumbnailUrl("");
   }
 
   function handleEdit(m: Material) {
@@ -83,6 +85,7 @@ export default function StudentEditor() {
     setTitle(m.title);
     setUrl(m.url || "");
     setDescription(m.description || "");
+    setThumbnailUrl(m.thumbnailUrl || "");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -158,6 +161,17 @@ export default function StudentEditor() {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://..."
+                className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
+              />
+
+              <label className="block text-xs text-muted mb-1.5">
+                Imagen de portada (opcional — solo si el link no trae una automática)
+              </label>
+              <input
+                type="url"
+                value={thumbnailUrl}
+                onChange={(e) => setThumbnailUrl(e.target.value)}
+                placeholder="https://... (link directo a una imagen .jpg / .png)"
                 className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
               />
             </>

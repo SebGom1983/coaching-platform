@@ -66,22 +66,29 @@ export default function MaterialCard({
   onEdit?: (m: Material) => void;
   onDelete?: (id: string) => void;
 }) {
-  const [thumbnail, setThumbnail] = useState<string | null>(null);
+  const [thumbnail, setThumbnail] = useState<string | null>(material.thumbnailUrl || null);
   const { t } = useLang();
   const isHomework = material.type === "homework";
   const isDone = material.status === "done";
 
   useEffect(() => {
     let active = true;
+    // A manually-set cover image always wins over the automatic oEmbed lookup.
+    if (material.thumbnailUrl) {
+      setThumbnail(material.thumbnailUrl);
+      return;
+    }
     if (material.url) {
       getLinkPreview(material.url).then((p) => {
         if (active) setThumbnail(p?.thumbnail || null);
       });
+    } else {
+      setThumbnail(null);
     }
     return () => {
       active = false;
     };
-  }, [material.url]);
+  }, [material.url, material.thumbnailUrl]);
 
   return (
     <div className="bg-card border border-white/10 rounded-2xl overflow-hidden hover:border-gold/30 transition">

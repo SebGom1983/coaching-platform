@@ -88,13 +88,14 @@ export type Material = {
   title: string;
   description?: string;
   url?: string;
+  thumbnailUrl?: string; // manual override, used when there's no automatic thumbnail
   status?: "pending" | "done"; // only meaningful for homework
   createdAt?: any;
 };
 
 export async function addMaterial(
   studentId: string,
-  data: { type: MaterialType; title: string; description?: string; url?: string }
+  data: { type: MaterialType; title: string; description?: string; url?: string; thumbnailUrl?: string }
 ) {
   await addDoc(collection(db, "materials"), {
     studentId,
@@ -102,6 +103,7 @@ export async function addMaterial(
     title: data.title,
     description: data.description || "",
     url: data.url || "",
+    thumbnailUrl: data.thumbnailUrl || "",
     ...(data.type === "homework" ? { status: "pending" } : {}),
     createdAt: serverTimestamp(),
   });
@@ -123,13 +125,14 @@ export async function setMaterialStatus(materialId: string, status: "pending" | 
 
 export async function updateMaterial(
   materialId: string,
-  data: { type: MaterialType; title: string; description?: string; url?: string }
+  data: { type: MaterialType; title: string; description?: string; url?: string; thumbnailUrl?: string }
 ) {
   await updateDoc(doc(db, "materials", materialId), {
     type: data.type,
     title: data.title,
     description: data.description || "",
     url: data.url || "",
+    thumbnailUrl: data.thumbnailUrl || "",
   });
 }
 
