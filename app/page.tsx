@@ -18,6 +18,9 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-4">
             <LangToggle />
+            <a href="/login" className="text-sm text-chalkDim hover:text-chalk">
+              {t("login")}
+            </a>
             <a href="/login" className="bg-gold text-ink text-sm font-medium px-5 py-2.5 rounded-lg">
               {t("bookLesson")}
             </a>

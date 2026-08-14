@@ -9,6 +9,7 @@ import {
   getUserProfile,
   getStudentMaterials,
   addMaterial,
+  updateMaterial,
   deleteMaterial,
   UserProfile,
   Material,
@@ -31,6 +32,7 @@ export default function StudentEditor() {
   const [url, setUrl] = useState("");
   const [description, setDescription] = useState("");
   const [saving, setSaving] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!authLoading) {
@@ -53,16 +55,35 @@ export default function StudentEditor() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile, studentId]);
 
-  async function handleAdd(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!title.trim()) return;
     setSaving(true);
-    await addMaterial(studentId, { type, title, url, description });
+    if (editingId) {
+      await updateMaterial(editingId, { type, title, url, description });
+    } else {
+      await addMaterial(studentId, { type, title, url, description });
+    }
+    resetForm();
+    await loadData();
+    setSaving(false);
+  }
+
+  function resetForm() {
+    setEditingId(null);
+    setType("link");
     setTitle("");
     setUrl("");
     setDescription("");
-    await loadData();
-    setSaving(false);
+  }
+
+  function handleEdit(m: Material) {
+    setEditingId(m.id);
+    setType(m.type);
+    setTitle(m.title);
+    setUrl(m.url || "");
+    setDescription(m.description || "");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   async function handleDelete(id: string) {
@@ -97,8 +118,15 @@ export default function StudentEditor() {
         <h1 className="font-serif text-3xl mb-1">{student?.name || "Alumno"}</h1>
         <p className="text-chalkDim text-sm mb-8">{student?.email}</p>
 
-        <form onSubmit={handleAdd} className="bg-card border border-white/10 rounded-2xl p-6 mb-9">
-          <h2 className="font-serif text-lg mb-4">Agregar material</h2>
+        <form onSubmit={handleSubmit} className="bg-card border border-white/10 rounded-2xl p-6 mb-9">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-serif text-lg">{editingId ? "Editar material" : "Agregar material"}</h2>
+            {editingId && (
+              <button type="button" onClick={resetForm} className="text-xs text-muted hover:text-chalk">
+                Cancelar edición
+              </button>
+            )}
+          </div>
 
           <label className="block text-xs text-muted mb-1.5">Tipo</label>
           <select
@@ -150,7 +178,7 @@ export default function StudentEditor() {
             disabled={saving}
             className="bg-gold text-ink font-medium text-sm px-5 py-2.5 rounded-lg disabled:opacity-50"
           >
-            {saving ? "Guardando..." : "Agregar"}
+            {saving ? "Guardando..." : editingId ? "Guardar cambios" : "Agregar"}
           </button>
         </form>
 
@@ -160,7 +188,7 @@ export default function StudentEditor() {
         ) : (
           <div className="grid md:grid-cols-2 gap-4">
             {materials.map((m) => (
-              <MaterialCard key={m.id} material={m} onDelete={handleDelete} />
+              <MaterialCard key={m.id} material={m} onEdit={handleEdit} onDelete={handleDelete} />
             ))}
           </div>
         )}

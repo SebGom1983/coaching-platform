@@ -11,6 +11,42 @@ const typeKey: Record<MaterialType, string> = {
   homework: "typeHomework",
 };
 
+// Fallback banner shown when a material has no real thumbnail (e.g. a
+// TED/article link with no oEmbed image, a text note, or a homework item).
+// Gives every card a consistent visual anchor instead of a blank top.
+const placeholderStyle: Record<MaterialType, string> = {
+  video: "from-gold/25 to-ink2",
+  link: "from-sage/25 to-ink2",
+  text: "from-sageSoft/20 to-ink2",
+  homework: "from-gold/20 to-ink2",
+};
+
+function PlaceholderIcon({ type }: { type: MaterialType }) {
+  const common = { width: 28, height: 28, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  if (type === "video") {
+    return (
+      <svg {...common}>
+        <polygon points="5 3 19 12 5 21 5 3" />
+      </svg>
+    );
+  }
+  if (type === "homework") {
+    return (
+      <svg {...common}>
+        <rect x="4" y="3" width="16" height="18" rx="2" />
+        <path d="M9 8h6M9 12h6M9 16h3" />
+      </svg>
+    );
+  }
+  // "link" and "text" — book/reading icon (TED talks, articles, notes)
+  return (
+    <svg {...common}>
+      <path d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5A1.5 1.5 0 0 1 4 18.5v-13Z" />
+      <path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H12v16h6.5a1.5 1.5 0 0 0 1.5-1.5v-13Z" />
+    </svg>
+  );
+}
+
 function domainOf(url: string) {
   try {
     return new URL(url).hostname.replace(/^www\./, "");
@@ -22,10 +58,12 @@ function domainOf(url: string) {
 export default function MaterialCard({
   material,
   onToggleHomework,
+  onEdit,
   onDelete,
 }: {
   material: Material;
   onToggleHomework?: (m: Material) => void;
+  onEdit?: (m: Material) => void;
   onDelete?: (id: string) => void;
 }) {
   const [thumbnail, setThumbnail] = useState<string | null>(null);
@@ -47,11 +85,17 @@ export default function MaterialCard({
 
   return (
     <div className="bg-card border border-white/10 rounded-2xl overflow-hidden hover:border-gold/30 transition">
-      {thumbnail && (
+      {thumbnail ? (
         <a href={material.url} target="_blank" rel="noopener noreferrer" className="block">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={thumbnail} alt="" className="w-full aspect-video object-cover" />
         </a>
+      ) : (
+        <div
+          className={`w-full aspect-[3/1] flex items-center justify-center bg-gradient-to-br ${placeholderStyle[material.type]} text-chalkDim/70`}
+        >
+          <PlaceholderIcon type={material.type} />
+        </div>
       )}
 
       <div className="p-5">
@@ -96,13 +140,25 @@ export default function MaterialCard({
           </p>
         )}
 
-        {onDelete && (
-          <button
-            onClick={() => onDelete(material.id)}
-            className="text-xs text-muted hover:text-red-400 mt-4"
-          >
-            Eliminar
-          </button>
+        {(onEdit || onDelete) && (
+          <div className="flex gap-4 mt-4">
+            {onEdit && (
+              <button
+                onClick={() => onEdit(material)}
+                className="text-xs text-muted hover:text-gold"
+              >
+                Editar
+              </button>
+            )}
+            {onDelete && (
+              <button
+                onClick={() => onDelete(material.id)}
+                className="text-xs text-muted hover:text-red-400"
+              >
+                Eliminar
+              </button>
+            )}
+          </div>
         )}
       </div>
     </div>

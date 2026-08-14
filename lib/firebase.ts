@@ -121,6 +121,18 @@ export async function setMaterialStatus(materialId: string, status: "pending" | 
   await updateDoc(doc(db, "materials", materialId), { status });
 }
 
+export async function updateMaterial(
+  materialId: string,
+  data: { type: MaterialType; title: string; description?: string; url?: string }
+) {
+  await updateDoc(doc(db, "materials", materialId), {
+    type: data.type,
+    title: data.title,
+    description: data.description || "",
+    url: data.url || "",
+  });
+}
+
 export async function deleteMaterial(materialId: string) {
   await deleteDoc(doc(db, "materials", materialId));
 }

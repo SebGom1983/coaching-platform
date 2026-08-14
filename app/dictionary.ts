@@ -36,4 +36,5 @@ export const dict = {
   statusDone: { es: "HECHO ✓", en: "DONE ✓" },
   statusPending: { es: "PENDIENTE", en: "PENDING" },
   openLink: { es: "Abrir enlace", en: "Open link" },
+  login: { es: "Iniciar sesión", en: "Log in" },
 };
