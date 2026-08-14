@@ -94,8 +94,10 @@ export default function MaterialCard({
     <div className="bg-card border border-white/10 rounded-2xl overflow-hidden hover:border-gold/30 transition">
       {thumbnail ? (
         <a href={material.url} target="_blank" rel="noopener noreferrer" className="block">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={thumbnail} alt="" className="w-full aspect-video object-cover" />
+          <div className="w-full aspect-video bg-ink2 flex items-center justify-center overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={thumbnail} alt="" className="max-w-full max-h-full object-contain" />
+          </div>
         </a>
       ) : (
         <div
