@@ -103,11 +103,60 @@ export default function Home() {
             </span>
             <h2 className="font-serif text-3xl">{t("pricingTitle")}</h2>
           </div>
+
+          {/* Intro block: rate-by-frequency explanation + payment terms */}
+          <div className="bg-card border border-white/10 rounded-2xl p-8 mb-12 max-w-3xl mx-auto text-center">
+            <h3 className="font-serif text-2xl mb-3">🚀 Tu inglés, sin excusas</h3>
+            <p className="text-chalkDim text-sm mb-6 max-w-xl mx-auto">
+              La constancia es la clave. Con al menos 3 clases por semana, tu inglés deja de ser
+              teoría y se convierte en práctica real. Entre más clases tomes, menos pagas por sesión:
+            </p>
+            <div className="grid sm:grid-cols-3 gap-4 mb-6">
+              <div className="bg-ink border border-white/10 rounded-xl p-4">
+                <div className="font-mono text-xl text-gold mb-1">$60.000</div>
+                <div className="text-chalkDim text-xs">2–3 clases/semana · por hora</div>
+              </div>
+              <div className="bg-ink border border-white/10 rounded-xl p-4">
+                <div className="font-mono text-xl text-gold mb-1">$55.000</div>
+                <div className="text-chalkDim text-xs">4 clases/semana · por hora</div>
+              </div>
+              <div className="bg-ink border border-white/10 rounded-xl p-4">
+                <div className="font-mono text-xl text-gold mb-1">$50.000</div>
+                <div className="text-chalkDim text-xs">5 clases/semana · por hora</div>
+              </div>
+            </div>
+            <p className="text-chalkDim text-xs">📅 Todos los cursos son de mínimo 1 mes (4 semanas).</p>
+            <p className="text-chalkDim text-xs">
+              💳 El pago se realiza en dos partes: 50% al inicio y 50% al llegar a la mitad.
+            </p>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-5">
             {[
-              { name: "Starter", lessons: 5, featured: false },
-              { name: "Coaching", lessons: 10, featured: true },
-              { name: "Immersion", lessons: 20, featured: false },
+              {
+                name: "Starter",
+                lessons: 12,
+                tagline: "Empieza hoy, habla con confianza mañana.",
+                description:
+                  "12 sesiones de una hora para construir bases sólidas y ganar seguridad al hablar.",
+                featured: false,
+              },
+              {
+                name: "Coaching",
+                lessons: 16,
+                tagline: "Constancia que se convierte en fluidez.",
+                description:
+                  "16 sesiones de una hora con práctica constante, feedback personalizado y progreso semana a semana.",
+                featured: true,
+              },
+              {
+                name: "Immersion",
+                lessons: 20,
+                tagline: "Inglés todos los días, resultados reales.",
+                description:
+                  "20 sesiones de una hora para transformar la fluidez, pensar en inglés y expresarse con naturalidad.",
+                featured: false,
+              },
             ].map((p) => (
               <div
                 key={p.name}
@@ -116,20 +165,23 @@ export default function Home() {
                 }`}
               >
                 <h4 className="font-serif text-xl mb-1">{p.name}</h4>
-                <div className="font-mono text-2xl text-gold my-3">{p.lessons} lessons</div>
+                <div className="font-mono text-2xl text-gold my-3">{p.lessons} clases/mes</div>
+                <p className="text-chalkDim text-sm mb-6">{p.description}</p>
                 <a
                   href="/login"
-                  className={`mt-auto text-sm font-medium px-5 py-2.5 rounded-lg text-center ${
+                  className={`text-sm font-medium px-5 py-2.5 rounded-lg text-center ${
                     p.featured ? "bg-gold text-ink" : "border border-white/10"
                   }`}
                 >
                   {t("bookLesson")}
                 </a>
+                <p className="text-chalkDim text-xs text-center mt-3 italic">{p.tagline}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
 
       <footer className="py-12 text-center text-muted text-sm">
         Seb<span className="text-gold">.</span> English Coaching — © 2026 Bogotá, Colombia

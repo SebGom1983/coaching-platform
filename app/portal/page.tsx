@@ -16,6 +16,7 @@ export default function Portal() {
   const [classes, setClasses] = useState<ClassSession[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -143,6 +144,45 @@ export default function Portal() {
             >
               {copied ? "¡Copiado!" : "Copiar"}
             </button>
+          </div>
+        </div>
+
+        <div className="bg-card border border-white/10 rounded-xl p-5 mb-9">
+          <p className="text-sm mb-3">💳 Cómo pagar (Bre-B)</p>
+          <p className="text-chalkDim text-xs mb-4">
+            Transfiere directo desde tu app del banco usando Bre-B — busca "Bre-B" o "Llaves" y paga
+            a cualquiera de estas dos llaves. Después de pagar, envíame el comprobante por WhatsApp.
+          </p>
+          <div className="flex flex-col gap-2">
+            {[
+              { bank: "Bancolombia", key: "80815929", preferred: true },
+              { bank: "Nu", key: "@ZAZ929", preferred: false },
+            ].map((opt) => (
+              <div
+                key={opt.bank}
+                className="flex items-center justify-between gap-3 bg-ink border border-white/10 rounded-lg px-3 py-2.5"
+              >
+                <div>
+                  <span className="text-sm font-medium">{opt.bank}</span>
+                  {opt.preferred && (
+                    <span className="ml-2 font-mono text-[10px] text-gold bg-gold/15 px-2 py-0.5 rounded-full">
+                      PREFERIDA
+                    </span>
+                  )}
+                  <p className="font-mono text-xs text-chalkDim">{opt.key}</p>
+                </div>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(opt.key);
+                    setCopiedKey(opt.bank);
+                    setTimeout(() => setCopiedKey(null), 2000);
+                  }}
+                  className="bg-gold/15 text-gold text-xs font-medium px-3 py-1.5 rounded-lg shrink-0"
+                >
+                  {copiedKey === opt.bank ? "¡Copiado!" : "Copiar"}
+                </button>
+              </div>
+            ))}
           </div>
         </div>
 
