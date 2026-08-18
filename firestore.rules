@@ -37,5 +37,14 @@ service cloud.firestore {
          resource.data.studentId == request.auth.uid &&
          request.resource.data.diff(resource.data).affectedKeys().hasOnly(["status"]));
     }
+    // classes/{id} — scheduled lessons for a student.
+    // Only the teacher creates/edits/deletes; the student can only read
+    // their own. (The public .ics calendar feed is served separately by
+    // a server route using the Admin SDK, which bypasses these rules.)
+    match /classes/{classId} {
+      allow read: if isSignedIn() &&
+        (isTeacher() || resource.data.studentId == request.auth.uid);
+      allow write: if isTeacher();
+    }
   }
 }

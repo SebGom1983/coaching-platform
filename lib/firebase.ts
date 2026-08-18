@@ -139,3 +139,58 @@ export async function updateMaterial(
 export async function deleteMaterial(materialId: string) {
   await deleteDoc(doc(db, "materials", materialId));
 }
+
+// -----------------------------------------------------------------------
+// Classes (scheduled Teams lessons) — top-level "classes" collection,
+// each doc tagged with studentId, one class = one date/time + Teams link.
+// -----------------------------------------------------------------------
+
+export type ClassSession = {
+  id: string;
+  studentId: string;
+  startsAt: string; // ISO datetime string, e.g. "2026-08-20T15:00:00"
+  durationMinutes: number;
+  teamsLink?: string;
+  notes?: string;
+  createdAt?: any;
+};
+
+export async function addClassSession(
+  studentId: string,
+  data: { startsAt: string; durationMinutes: number; teamsLink?: string; notes?: string }
+) {
+  await addDoc(collection(db, "classes"), {
+    studentId,
+    startsAt: data.startsAt,
+    durationMinutes: data.durationMinutes,
+    teamsLink: data.teamsLink || "",
+    notes: data.notes || "",
+    createdAt: serverTimestamp(),
+  });
+}
+
+export async function getStudentClasses(studentId: string): Promise<ClassSession[]> {
+  const q = query(
+    collection(db, "classes"),
+    where("studentId", "==", studentId),
+    orderBy("startsAt", "asc")
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as ClassSession));
+}
+
+export async function updateClassSession(
+  classId: string,
+  data: { startsAt: string; durationMinutes: number; teamsLink?: string; notes?: string }
+) {
+  await updateDoc(doc(db, "classes", classId), {
+    startsAt: data.startsAt,
+    durationMinutes: data.durationMinutes,
+    teamsLink: data.teamsLink || "",
+    notes: data.notes || "",
+  });
+}
+
+export async function deleteClassSession(classId: string) {
+  await deleteDoc(doc(db, "classes", classId));
+}
