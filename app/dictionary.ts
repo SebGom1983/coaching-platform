@@ -37,4 +37,46 @@ export const dict = {
   statusPending: { es: "PENDIENTE", en: "PENDING" },
   openLink: { es: "Abrir enlace", en: "Open link" },
   login: { es: "Iniciar sesión", en: "Log in" },
+  // Portal sidebar nav
+  navPanel: { es: "Panel", en: "Dashboard" },
+  navClasses: { es: "Clases", en: "Classes" },
+  navMaterial: { es: "Material", en: "Material" },
+  navPayment: { es: "Pago", en: "Payment" },
+  navAiChat: { es: "IA", en: "AI" },
+  // Dashboard
+  nextClass: { es: "Tu próxima clase", en: "Your next class" },
+  noUpcomingClass: { es: "No tienes clases próximas agendadas.", en: "You have no upcoming classes scheduled." },
+  join: { es: "Unirse", en: "Join" },
+  quickLinksTitle: { es: "Accesos rápidos", en: "Quick links" },
+  goToClasses: { es: "Ver todas tus clases", en: "See all your classes" },
+  goToMaterial: { es: "Ver tu material y tareas", en: "See your material and homework" },
+  goToPayment: { es: "Ver cómo pagar", en: "See how to pay" },
+  goToChat: { es: "Practicar con IA", en: "Practice with AI" },
+  // Classes page
+  classesTitle: { es: "Próximas clases", en: "Upcoming classes" },
+  noUpcomingClasses: { es: "Todavía no tienes clases agendadas.", en: "You don't have any classes scheduled yet." },
+  syncCalendarTitle: { es: "📅 Sincroniza tus clases con tu calendario", en: "📅 Sync your classes to your calendar" },
+  syncCalendarBody: {
+    es: "Agrega este link una sola vez a Google Calendar, Apple Calendar u Outlook — tus clases nuevas van a aparecer ahí solas, sin que tengas que hacer nada más.",
+    en: "Add this link once to Google Calendar, Apple Calendar, or Outlook — your new classes will appear there automatically, with nothing else for you to do.",
+  },
+  copy: { es: "Copiar", en: "Copy" },
+  copied: { es: "¡Copiado!", en: "Copied!" },
+  // Payment page
+  paymentTitle: { es: "💳 Cómo pagar (Bre-B)", en: "💳 How to pay (Bre-B)" },
+  paymentBody: {
+    es: "Transfiere directo desde tu app del banco usando Bre-B — busca \"Bre-B\" o \"Llaves\" y paga a cualquiera de estas dos llaves. Después de pagar, envíame el comprobante por WhatsApp.",
+    en: "Transfer directly from your bank app using Bre-B — look for \"Bre-B\" or \"Keys\" and pay to either of these two keys. After paying, send me the receipt on WhatsApp.",
+  },
+  preferred: { es: "PREFERIDA", en: "PREFERRED" },
+  // Chat page
+  aiChatTitle: { es: "Practicar con IA 🤖", en: "Practice with AI 🤖" },
+  aiChatWelcome: {
+    es: "¡Hola! Soy tu compañero de práctica de inglés. Cuéntame de tu día, hazme una pregunta de gramática, o solo saluda — ¡conversemos! 🙂",
+    en: "Hi! I'm your English practice partner. Tell me about your day, ask me a grammar question, or just say hello — let's chat! 🙂",
+  },
+  aiChatPlaceholder: { es: "Escribe en inglés o español...", en: "Write in English or Spanish..." },
+  send: { es: "Enviar", en: "Send" },
+  typing: { es: "Escribiendo...", en: "Typing..." },
+  aiChatError: { es: "No se pudo conectar con la IA. Intenta de nuevo en un momento.", en: "Couldn't connect to the AI. Try again in a moment." },
 };
