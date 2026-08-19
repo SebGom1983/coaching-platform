@@ -7,6 +7,7 @@ import { auth, getStudentMaterials, setMaterialStatus, getStudentClasses, Materi
 import { useLang } from "@/lib/i18n";
 import LangToggle from "../components/LangToggle";
 import MaterialCard from "../components/MaterialCard";
+import Link from "next/link";
 
 export default function Portal() {
   const { user, profile, loading: authLoading } = useAuth();
@@ -93,6 +94,16 @@ export default function Portal() {
             </h1>
           </div>
         </div>
+
+        <Link
+          href="/portal/chat"
+          className="block bg-card border border-gold/30 rounded-xl p-5 mb-9 hover:border-gold transition"
+        >
+          <p className="text-sm mb-1">🤖 Practicar con IA</p>
+          <p className="text-chalkDim text-xs">
+            Chatea en inglés, haz preguntas de gramática, y recibe correcciones al instante.
+          </p>
+        </Link>
 
         <h2 className="font-serif text-lg mb-4">Próximas clases</h2>
         {upcomingClasses.length === 0 ? (
