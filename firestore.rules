@@ -46,5 +46,17 @@ service cloud.firestore {
         (isTeacher() || resource.data.studentId == request.auth.uid);
       allow write: if isTeacher();
     }
+
+    // siteContent/* and classVideos/{id} — public marketing content
+    // (About me text, real class video clips) shown on the landing page,
+    // which has no login. Anyone can read; only the teacher can edit.
+    match /siteContent/{docId} {
+      allow read: if true;
+      allow write: if isTeacher();
+    }
+    match /classVideos/{videoId} {
+      allow read: if true;
+      allow write: if isTeacher();
+    }
   }
 }

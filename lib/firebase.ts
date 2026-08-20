@@ -194,3 +194,66 @@ export async function updateClassSession(
 export async function deleteClassSession(classId: string) {
   await deleteDoc(doc(db, "classes", classId));
 }
+
+// -----------------------------------------------------------------------
+// Public site content — editable by the teacher, readable by anyone
+// (the landing page has no login). Two pieces: the "About me" text/links,
+// and the list of real class video clips.
+// -----------------------------------------------------------------------
+
+export type SiteAbout = {
+  titleEs: string;
+  titleEn: string;
+  body1Es: string;
+  body1En: string;
+  body2Es: string;
+  body2En: string;
+  instagramUrl: string;
+  linkedinUrl: string;
+};
+
+const DEFAULT_ABOUT: SiteAbout = {
+  titleEs: "15+ años ayudando a personas reales a hablar inglés",
+  titleEn: "15+ years helping real people speak English",
+  body1Es:
+    "Mi camino no empezó en un salón de clase. Trabajé como chef en cruceros internacionales para Celebrity Cruises, conviviendo a diario con personas de decenas de nacionalidades y culturas distintas. Esa experiencia me enseñó algo que ningún libro de gramática enseña: los idiomas se aprenden viviendo experiencias reales y conectando con personas.",
+  body1En:
+    "My path didn't start in a classroom. I worked as a chef on international cruise ships for Celebrity Cruises, living day to day with people from dozens of nationalities and cultures. That experience taught me something no grammar book can: languages are learned by living real experiences and connecting with people.",
+  body2Es:
+    "Desde entonces llevo más de 15 años como profesor y mentor de comunicación profesional — combinando mi experiencia en Berlitz con clases independientes aquí en Bogotá. Fuera de las clases, me vas a encontrar corriendo, cocinando, o metido en algún proyecto de programación — soy un entusiasta de la tecnología y desarrollador autodidacta, y esta misma plataforma la construí yo. Soy un libro abierto — pregúntame lo que quieras.",
+  body2En:
+    "Since then I've spent 15+ years as a teacher and professional communication mentor — combining my experience at Berlitz with independent classes here in Bogotá. Outside of class, you'll find me running, cooking, or deep in some coding project — I'm a self-taught developer and tech enthusiast, and I built this very platform myself. I'm an open book — ask me anything.",
+  instagramUrl: "https://instagram.com/chefsebasgomez",
+  linkedinUrl: "",
+};
+
+export async function getSiteAbout(): Promise<SiteAbout> {
+  const snap = await getDoc(doc(db, "siteContent", "about"));
+  return snap.exists() ? ({ ...DEFAULT_ABOUT, ...snap.data() } as SiteAbout) : DEFAULT_ABOUT;
+}
+
+export async function updateSiteAbout(data: SiteAbout) {
+  await setDoc(doc(db, "siteContent", "about"), data);
+}
+
+export type ClassVideo = {
+  id: string;
+  youtubeId: string;
+  titleEs: string;
+  titleEn: string;
+  createdAt?: any;
+};
+
+export async function getClassVideos(): Promise<ClassVideo[]> {
+  const q = query(collection(db, "classVideos"), orderBy("createdAt", "asc"));
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as ClassVideo));
+}
+
+export async function addClassVideo(data: { youtubeId: string; titleEs: string; titleEn: string }) {
+  await addDoc(collection(db, "classVideos"), { ...data, createdAt: serverTimestamp() });
+}
+
+export async function deleteClassVideo(id: string) {
+  await deleteDoc(doc(db, "classVideos", id));
+}

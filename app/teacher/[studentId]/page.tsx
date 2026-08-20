@@ -177,6 +177,9 @@ export default function StudentEditor() {
           <Link href="/teacher" className="px-3 py-2.5 rounded-lg text-chalkDim">
             ← Alumnos
           </Link>
+          <Link href="/teacher/content" className="px-3 py-2.5 rounded-lg text-chalkDim hover:bg-white/5">
+            Contenido del sitio
+          </Link>
         </nav>
         <button onClick={() => signOut(auth)} className="text-left text-xs text-muted px-3 py-2">
           Cerrar sesión

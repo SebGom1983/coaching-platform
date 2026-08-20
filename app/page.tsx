@@ -1,9 +1,38 @@
 "use client";
+import { useEffect, useState } from "react";
 import { useLang } from "@/lib/i18n";
 import LangToggle from "./components/LangToggle";
+import { getSiteAbout, getClassVideos, SiteAbout, ClassVideo } from "@/lib/firebase";
+
+// Add real testimonials here once you have them.
+const TESTIMONIALS: { name: string; quote: string; role?: string }[] = [
+  // { name: "María P.", role: "Gerente de proyectos", quote: "..." },
+];
+
+// Company badges shown as text for now — swap in real logo images (imgur
+// links) the same way you add material thumbnails, whenever you have them.
+const COMPANIES = [
+  "DHL",
+  "Berlitz",
+  "Banco Interamericano de Desarrollo",
+  "Lufthansa",
+  "Celebrity Cruises",
+  "CAF",
+  "Linked SAS",
+  "E3 English",
+  "HTL Idiomas",
+  "Netactica",
+];
 
 export default function Home() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const [about, setAbout] = useState<SiteAbout | null>(null);
+  const [videos, setVideos] = useState<ClassVideo[]>([]);
+
+  useEffect(() => {
+    getSiteAbout().then(setAbout);
+    getClassVideos().then(setVideos);
+  }, []);
 
   return (
     <>
@@ -13,7 +42,9 @@ export default function Home() {
             Seb<span className="text-gold">.</span> English Coaching
           </div>
           <div className="hidden md:flex gap-8 text-sm text-chalkDim">
+            <a href="#about">{t("navAbout")}</a>
             <a href="#method">{t("navMethod")}</a>
+            <a href="#classes">{t("navClasses")}</a>
             <a href="#pricing">{t("navPricing")}</a>
           </div>
           <div className="flex items-center gap-4">
@@ -28,6 +59,7 @@ export default function Home() {
         </nav>
       </header>
 
+      {/* Hero */}
       <section className="border-b border-white/10 py-28">
         <div className="max-w-5xl mx-auto px-7 grid md:grid-cols-2 gap-16 items-center">
           <div>
@@ -70,32 +102,187 @@ export default function Home() {
         </div>
       </section>
 
+      {/* About */}
+      <section id="about" className="border-b border-white/10 py-28">
+        <div className="max-w-5xl mx-auto px-7 grid md:grid-cols-[1fr_1.3fr] gap-14 items-center">
+          <div className="bg-card border border-white/10 rounded-2xl aspect-square flex items-center justify-center text-6xl">
+            👋
+          </div>
+          <div>
+            <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-3">
+              {t("aboutEyebrow")}
+            </span>
+            <h2 className="font-serif text-3xl mb-5">{about ? (lang === "es" ? about.titleEs : about.titleEn) : ""}</h2>
+            <p className="text-chalkDim text-sm mb-4 leading-relaxed">
+              {about ? (lang === "es" ? about.body1Es : about.body1En) : ""}
+            </p>
+            <p className="text-chalkDim text-sm mb-4 leading-relaxed">
+              {about ? (lang === "es" ? about.body2Es : about.body2En) : ""}
+            </p>
+            <div className="flex gap-5">
+              {about?.instagramUrl && (
+                <a
+                  href={about.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gold text-sm font-medium hover:underline"
+                >
+                  Instagram ↗
+                </a>
+              )}
+              {about?.linkedinUrl && (
+                <a
+                  href={about.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gold text-sm font-medium hover:underline"
+                >
+                  LinkedIn ↗
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Companies */}
+      <section className="border-b border-white/10 py-16">
+        <div className="max-w-5xl mx-auto px-7">
+          <p className="text-center font-mono text-xs uppercase tracking-widest text-muted mb-8">
+            {t("companiesEyebrow")}
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {COMPANIES.map((c) => (
+              <span
+                key={c}
+                className="font-serif text-sm text-chalkDim border border-white/10 rounded-full px-4 py-2"
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Method / philosophy */}
       <section id="method" className="border-b border-white/10 py-28">
         <div className="max-w-5xl mx-auto px-7">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-3">
               {t("philosophyEyebrow")}
             </span>
-            <h2 className="font-serif text-3xl">{t("philosophyTitle")}</h2>
+            <h2 className="font-serif text-3xl mb-4">{t("philosophyTitle")}</h2>
+            <p className="text-chalkDim text-sm">{t("philosophyLead")}</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden">
-            <div className="bg-ink p-10">
-              <h3 className="font-serif text-xl text-gold mb-3">{t("myRole")}</h3>
-              <p className="text-chalkDim text-sm">
-                Coach, mentor, tutor y profesor — te acompaño en todo tu proceso de aprendizaje.
-              </p>
+
+          <div className="grid md:grid-cols-3 gap-5 mb-14">
+            {[
+              { emoji: "💬", title: t("pillar1Title"), body: t("pillar1Body") },
+              { emoji: "🎯", title: t("pillar2Title"), body: t("pillar2Body") },
+              { emoji: "🤖", title: t("pillar3Title"), body: t("pillar3Body") },
+            ].map((p) => (
+              <div key={p.title} className="bg-card border border-white/10 rounded-2xl p-8">
+                <div className="text-2xl mb-3">{p.emoji}</div>
+                <h3 className="font-serif text-lg mb-2">{p.title}</h3>
+                <p className="text-chalkDim text-sm">{p.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center font-serif text-xl text-gold max-w-xl mx-auto">{t("keyPhrase")}</p>
+        </div>
+      </section>
+
+      {/* Real class videos */}
+      <section id="classes" className="border-b border-white/10 py-28">
+        <div className="max-w-5xl mx-auto px-7">
+          <div className="text-center max-w-xl mx-auto mb-16">
+            <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-3">
+              {t("classesEyebrow")}
+            </span>
+            <h2 className="font-serif text-3xl">{t("classesVideoTitle")}</h2>
+          </div>
+
+          {videos.length === 0 ? (
+            <div className="bg-card border border-white/10 rounded-2xl p-16 text-center text-chalkDim text-sm max-w-xl mx-auto">
+              {t("classesComingSoon")}
             </div>
-            <div className="bg-ink p-10">
-              <h3 className="font-serif text-xl text-sageSoft mb-3">{t("aiRole")}</h3>
-              <p className="text-chalkDim text-sm">
-                Mi asistente de enseñanza. Nunca me reemplaza — trabaja en segundo plano.
-              </p>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-6">
+              {videos.map((v) => (
+                <div key={v.id} className="rounded-2xl overflow-hidden border border-white/10">
+                  <div className="aspect-video">
+                    <iframe
+                      className="w-full h-full"
+                      src={`https://www.youtube.com/embed/${v.youtubeId}`}
+                      title={lang === "es" ? v.titleEs : v.titleEn}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                  <p className="text-chalkDim text-sm p-4">{lang === "es" ? v.titleEs : v.titleEn}</p>
+                </div>
+              ))}
             </div>
+          )}
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="border-b border-white/10 py-28">
+        <div className="max-w-5xl mx-auto px-7">
+          <div className="text-center max-w-xl mx-auto mb-16">
+            <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-3">
+              {t("testimonialsEyebrow")}
+            </span>
+            <h2 className="font-serif text-3xl">{t("testimonialsTitle")}</h2>
+          </div>
+
+          {TESTIMONIALS.length === 0 ? (
+            <div className="bg-card border border-white/10 rounded-2xl p-16 text-center text-chalkDim text-sm max-w-xl mx-auto">
+              {t("testimonialsComingSoon")}
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-5">
+              {TESTIMONIALS.map((tst) => (
+                <div key={tst.name} className="bg-card border border-white/10 rounded-2xl p-6">
+                  <p className="text-chalkDim text-sm mb-4 italic">&ldquo;{tst.quote}&rdquo;</p>
+                  <p className="font-serif text-sm">{tst.name}</p>
+                  {tst.role && <p className="text-muted text-xs">{tst.role}</p>}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Services */}
+      <section className="border-b border-white/10 py-28">
+        <div className="max-w-5xl mx-auto px-7">
+          <div className="text-center max-w-xl mx-auto mb-16">
+            <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-3">
+              {t("servicesEyebrow")}
+            </span>
+            <h2 className="font-serif text-3xl">{t("servicesTitle")}</h2>
+          </div>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {[
+              t("service1"),
+              t("service2"),
+              t("service3"),
+              t("service4"),
+              t("service5"),
+            ].map((s) => (
+              <div key={s} className="bg-card border border-white/10 rounded-xl p-5 text-sm">
+                {s}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section id="pricing" className="py-28">
+      {/* Pricing */}
+      <section id="pricing" className="border-b border-white/10 py-28">
         <div className="max-w-5xl mx-auto px-7">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-3">
@@ -104,7 +291,6 @@ export default function Home() {
             <h2 className="font-serif text-3xl">{t("pricingTitle")}</h2>
           </div>
 
-          {/* Intro block: rate-by-frequency explanation + payment terms */}
           <div className="bg-card border border-white/10 rounded-2xl p-8 mb-12 max-w-3xl mx-auto text-center">
             <h3 className="font-serif text-2xl mb-3">🚀 Tu inglés, sin excusas</h3>
             <p className="text-chalkDim text-sm mb-6 max-w-xl mx-auto">
@@ -182,9 +368,35 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Final CTA */}
+      <section className="py-28">
+        <div className="max-w-2xl mx-auto px-7 text-center">
+          <h2 className="font-serif text-3xl mb-4">{t("finalCtaTitle")}</h2>
+          <p className="text-chalkDim text-sm mb-8">{t("finalCtaBody")}</p>
+          <a href="/login" className="bg-gold text-ink text-sm font-medium px-6 py-3 rounded-lg inline-block">
+            {t("bookLesson")}
+          </a>
+        </div>
+      </section>
 
       <footer className="py-12 text-center text-muted text-sm">
         Seb<span className="text-gold">.</span> English Coaching — © 2026 Bogotá, Colombia
+        {about?.instagramUrl && (
+          <>
+            <span className="mx-2">·</span>
+            <a href={about.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-chalkDim">
+              Instagram
+            </a>
+          </>
+        )}
+        {about?.linkedinUrl && (
+          <>
+            <span className="mx-2">·</span>
+            <a href={about.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-chalkDim">
+              LinkedIn
+            </a>
+          </>
+        )}
       </footer>
     </>
   );

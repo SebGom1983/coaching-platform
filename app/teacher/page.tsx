@@ -49,6 +49,9 @@ export default function TeacherDashboard() {
         </div>
         <nav className="flex flex-col gap-1 flex-1 text-sm">
           <a className="px-3 py-2.5 rounded-lg bg-gold/10 text-gold font-medium">Alumnos</a>
+          <Link href="/teacher/content" className="px-3 py-2.5 rounded-lg text-chalkDim hover:bg-white/5">
+            Contenido del sitio
+          </Link>
         </nav>
         <button onClick={() => signOut(auth)} className="text-left text-xs text-muted px-3 py-2">
           Cerrar sesión

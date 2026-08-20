@@ -6,11 +6,11 @@ export const dict = {
   eyebrowExperience: { es: "15+ años enseñando inglés", en: "15+ years teaching English" },
   heroTitle: { es: "La gente aprende de la gente.", en: "People learn from people." },
   heroLead: {
-    es: "Un coaching de inglés premium construido sobre mi metodología. La IA prepara tu material personalizado en segundo plano — yo sigo siendo tu mentor.",
-    en: "A premium English coaching platform built around my methodology. AI prepares your personalized materials behind the scenes — I remain your mentor.",
+    es: "Mentoría personalizada en inglés para profesionales que quieren comunicarse con confianza en el mundo real. Invierte en un mentor, no en una app.",
+    en: "Personalized English mentorship for professionals who want to communicate with confidence in the real world. Invest in a mentor, not an app.",
   },
-  ctaPlacement: { es: "Haz el test de nivel", en: "Take the placement test" },
-  ctaMethod: { es: "Ver el método", en: "See the method" },
+  ctaPlacement: { es: "Reserva una sesión", en: "Book a session" },
+  ctaMethod: { es: "Agenda una llamada", en: "Schedule a call" },
   philosophyEyebrow: { es: "FILOSOFÍA", en: "PHILOSOPHY" },
   philosophyTitle: { es: "El profesor guía. La IA acompaña.", en: "The teacher leads. The AI supports." },
   myRole: { es: "Mi rol", en: "My role" },
@@ -79,4 +79,77 @@ export const dict = {
   send: { es: "Enviar", en: "Send" },
   typing: { es: "Escribiendo...", en: "Typing..." },
   aiChatError: { es: "No se pudo conectar con la IA. Intenta de nuevo en un momento.", en: "Couldn't connect to the AI. Try again in a moment." },
+  // Landing: nav
+  navAbout: { es: "Sobre mí", en: "About" },
+  // Landing: about section
+  aboutEyebrow: { es: "SOBRE MÍ", en: "ABOUT ME" },
+  aboutTitle: { es: "15+ años ayudando a personas reales a hablar inglés", en: "15+ years helping real people speak English" },
+  aboutBody1: {
+    es: "Mi camino no empezó en un salón de clase. Trabajé como chef en cruceros internacionales para Celebrity Cruises, conviviendo a diario con personas de decenas de nacionalidades y culturas distintas. Esa experiencia me enseñó algo que ningún libro de gramática enseña: los idiomas se aprenden viviendo experiencias reales y conectando con personas.",
+    en: "My path didn't start in a classroom. I worked as a chef on international cruise ships for Celebrity Cruises, living day to day with people from dozens of nationalities and cultures. That experience taught me something no grammar book can: languages are learned by living real experiences and connecting with people.",
+  },
+  aboutBody2: {
+    es: "Desde entonces llevo más de 15 años como profesor y mentor de comunicación profesional — combinando mi experiencia en Berlitz con clases independientes aquí en Bogotá. Hoy acompaño a profesionales que necesitan hablar inglés con confianza real: en entrevistas, reuniones, presentaciones y negociaciones internacionales. Esta plataforma existe para darte eso — un mentor presente, y herramientas que te acompañan el resto de la semana.",
+    en: "Since then I've spent 15+ years as a teacher and professional communication mentor — combining my experience at Berlitz with independent classes here in Bogotá. Today I work with professionals who need to speak English with real confidence: in interviews, meetings, presentations, and international negotiations. This platform exists to give you that — a present mentor, and tools that support you the rest of the week.",
+  },
+  // Landing: philosophy
+  philosophyLead: {
+    es: "La gente aprende de la gente. La IA no reemplaza eso — te ayuda a seguir practicando cuando no estamos en clase.",
+    en: "People learn from people. AI doesn't replace that — it helps you keep practicing when we're not in class.",
+  },
+  myRoleBody: {
+    es: "Coach, mentor, tutor y profesor — te acompaño en todo tu proceso de aprendizaje, con retroalimentación real y un plan hecho para ti.",
+    en: "Coach, mentor, tutor, and teacher — I'm with you throughout your learning process, with real feedback and a plan built for you.",
+  },
+  aiRoleBody: {
+    es: "Tu compañero de práctica entre clases — conversación, dudas de gramática, y refuerzo. Nunca reemplaza al profesor, trabaja en segundo plano.",
+    en: "Your practice partner between classes — conversation, grammar questions, and reinforcement. It never replaces the teacher, it works in the background.",
+  },
+  // Landing: companies
+  companiesEyebrow: {
+    es: "INSPIRANDO PROFESIONALES DE ORGANIZACIONES COMO",
+    en: "INSPIRING PROFESSIONALS FROM ORGANIZATIONS LIKE",
+  },
+  // Landing: method pillars
+  pillar1Title: { es: "Conversación real", en: "Real conversation" },
+  pillar1Body: {
+    es: "Practicamos situaciones reales — entrevistas, reuniones, presentaciones — no diálogos de libro de texto.",
+    en: "We practice real situations — interviews, meetings, presentations — not textbook dialogues.",
+  },
+  pillar2Title: { es: "Aprendizaje personalizado", en: "Personalized learning" },
+  pillar2Body: {
+    es: "Cada plan se adapta a tu nivel, tu industria, y tus objetivos específicos — no una fórmula genérica.",
+    en: "Every plan adapts to your level, your industry, and your specific goals — not a generic formula.",
+  },
+  pillar3Title: { es: "Tecnología e IA como apoyo", en: "Technology and AI as support" },
+  pillar3Body: {
+    es: "Practica entre clases con IA, disponible cuando la necesites — siempre como apoyo, nunca como reemplazo.",
+    en: "Practice between classes with AI, available whenever you need it — always as support, never as a replacement.",
+  },
+  keyPhrase: {
+    es: "La tecnología enseña información. Las personas enseñan confianza.",
+    en: "Technology teaches information. People teach confidence.",
+  },
+  // Landing: real classes video section
+  classesEyebrow: { es: "CLASES REALES", en: "REAL CLASSES" },
+  classesVideoTitle: { es: "Así se ven mis clases", en: "This is what my classes look like" },
+  classesComingSoon: { es: "Videos de clases reales próximamente. 🎥", en: "Real class videos coming soon. 🎥" },
+  // Landing: testimonials
+  testimonialsEyebrow: { es: "TESTIMONIOS", en: "TESTIMONIALS" },
+  testimonialsTitle: { es: "Resultados reales", en: "Real results" },
+  testimonialsComingSoon: { es: "Testimonios próximamente.", en: "Testimonials coming soon." },
+  // Landing: services
+  servicesEyebrow: { es: "SERVICIOS", en: "SERVICES" },
+  servicesTitle: { es: "En qué te puedo ayudar", en: "How I can help you" },
+  service1: { es: "Inglés para negocios", en: "Business English" },
+  service2: { es: "Entrevistas laborales", en: "Job interviews" },
+  service3: { es: "Presentaciones y reuniones", en: "Presentations and meetings" },
+  service4: { es: "Conversación avanzada", en: "Advanced conversation" },
+  service5: { es: "Coaching profesional", en: "Professional coaching" },
+  // Landing: final CTA
+  finalCtaTitle: { es: "¿Listo para comunicarte con confianza?", en: "Ready to communicate with confidence?" },
+  finalCtaBody: {
+    es: "Agenda una sesión y descubre por qué la gente aprende mejor de la gente.",
+    en: "Book a session and discover why people learn best from people.",
+  },
 };
