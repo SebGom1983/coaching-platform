@@ -4,7 +4,7 @@ export const dict = {
   navTestimonials: { es: "Testimonios", en: "Testimonials" },
   bookLesson: { es: "Reservar clase", en: "Book a lesson" },
   eyebrowExperience: { es: "15+ años enseñando inglés", en: "15+ years teaching English" },
-  heroTitle: { es: "La gente aprende de la gente.", en: "People learn from people." },
+  heroTitle: { es: "No aprendes inglés para aprobar un examen.", en: "You don't learn English to pass a test." },
   heroLead: {
     es: "Mentoría personalizada en inglés para profesionales que quieren comunicarse con confianza en el mundo real. Invierte en un mentor, no en una app.",
     en: "Personalized English mentorship for professionals who want to communicate with confidence in the real world. Invest in a mentor, not an app.",

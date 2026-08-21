@@ -78,26 +78,40 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="bg-card border border-white/10 rounded-2xl p-6 shadow-2xl">
-            <div className="flex justify-between items-center mb-4">
-              <span className="font-mono text-xs text-sageSoft bg-sage/15 px-2.5 py-1 rounded-full">
-                AI-GENERATED
-              </span>
-              <span className="font-mono text-xs text-muted">LESSON 08</span>
-            </div>
-            {[
-              ["Vocabulario de viajes / Travel vocabulary", "90%"],
-              ["Present Perfect", "74%"],
-              ["Pronunciación / Pronunciation", "58%"],
-              ["Listening", "82%"],
-            ].map(([label, pct]) => (
-              <div key={label} className="flex justify-between text-sm text-chalkDim py-2 border-t border-white/10 first:border-t-0">
-                <span>{label}</span>
-                <div className="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden self-center">
-                  <div className="h-full bg-sageSoft" style={{ width: pct }} />
-                </div>
+          <div>
+            {about?.heroPhotoUrl ? (
+              <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl aspect-[4/5]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={about.heroPhotoUrl}
+                  alt="Seb"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
               </div>
-            ))}
+            ) : (
+              <div className="bg-card border border-white/10 rounded-2xl p-6 shadow-2xl">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="font-mono text-xs text-sageSoft bg-sage/15 px-2.5 py-1 rounded-full">
+                    AI-GENERATED
+                  </span>
+                  <span className="font-mono text-xs text-muted">LESSON 08</span>
+                </div>
+                {[
+                  ["Vocabulario de viajes / Travel vocabulary", "90%"],
+                  ["Present Perfect", "74%"],
+                  ["Pronunciación / Pronunciation", "58%"],
+                  ["Listening", "82%"],
+                ].map(([label, pct]) => (
+                  <div key={label} className="flex justify-between text-sm text-chalkDim py-2 border-t border-white/10 first:border-t-0">
+                    <span>{label}</span>
+                    <div className="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden self-center">
+                      <div className="h-full bg-sageSoft" style={{ width: pct }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>

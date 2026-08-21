@@ -160,6 +160,23 @@ export default function SiteContentPage() {
             className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
           />
 
+          <label className="block text-xs text-muted mb-1.5">Foto para el hero (URL directa a la imagen)</label>
+          {about.heroPhotoUrl && (
+            <div className="relative w-32 mb-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={about.heroPhotoUrl} alt="" className="w-32 aspect-square object-cover rounded-lg border border-white/10" />
+            </div>
+          )}
+          <input
+            value={about.heroPhotoUrl}
+            onChange={(e) => setAbout({ ...about, heroPhotoUrl: e.target.value })}
+            placeholder="https://i.postimg.cc/... o https://i.imgur.com/....jpg"
+            className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-1 text-sm outline-none focus:border-gold"
+          />
+          <p className="text-xs text-muted mb-4">
+            Debe ser el link directo a la imagen (termina en .jpg o .png), no el link de la página del álbum.
+          </p>
+
           <label className="block text-xs text-muted mb-1.5">Instagram (URL completa)</label>
           <input
             value={about.instagramUrl}

@@ -210,6 +210,7 @@ export type SiteAbout = {
   body2En: string;
   instagramUrl: string;
   linkedinUrl: string;
+  heroPhotoUrl: string;
 };
 
 const DEFAULT_ABOUT: SiteAbout = {
@@ -225,6 +226,7 @@ const DEFAULT_ABOUT: SiteAbout = {
     "Since then I've spent 15+ years as a teacher and professional communication mentor — combining my experience at Berlitz with independent classes here in Bogotá. Outside of class, you'll find me running, cooking, or deep in some coding project — I'm a self-taught developer and tech enthusiast, and I built this very platform myself. I'm an open book — ask me anything.",
   instagramUrl: "https://instagram.com/chefsebasgomez",
   linkedinUrl: "",
+  heroPhotoUrl: "",
 };
 
 export async function getSiteAbout(): Promise<SiteAbout> {
