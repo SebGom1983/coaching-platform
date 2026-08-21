@@ -56,14 +56,14 @@ export default function AiChatPage() {
             className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${
               m.role === "user"
                 ? "self-end bg-gold text-ink rounded-br-sm"
-                : "self-start bg-card border border-white/10 rounded-bl-sm"
+                : "self-start bg-card border border-line/10 rounded-bl-sm"
             }`}
           >
             {m.text}
           </div>
         ))}
         {sending && (
-          <div className="self-start bg-card border border-white/10 rounded-2xl rounded-bl-sm px-4 py-3 text-sm text-chalkDim">
+          <div className="self-start bg-card border border-line/10 rounded-2xl rounded-bl-sm px-4 py-3 text-sm text-chalkDim">
             {t("typing")}
           </div>
         )}
@@ -78,7 +78,7 @@ export default function AiChatPage() {
           onChange={(e) => setInput(e.target.value)}
           placeholder={t("aiChatPlaceholder")}
           disabled={sending}
-          className="flex-1 bg-card border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-gold disabled:opacity-50"
+          className="flex-1 bg-card border border-line/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-gold disabled:opacity-50"
         />
         <button
           type="submit"

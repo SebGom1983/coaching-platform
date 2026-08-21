@@ -52,7 +52,7 @@ export default function ClassesPage() {
             return (
               <div
                 key={c.id}
-                className="bg-card border border-white/10 rounded-xl p-5 flex justify-between items-center gap-4"
+                className="bg-card border border-line/10 rounded-xl p-5 flex justify-between items-center gap-4"
               >
                 <div>
                   <p className="font-serif capitalize">
@@ -76,7 +76,7 @@ export default function ClassesPage() {
         </div>
       )}
 
-      <div className="bg-card border border-white/10 rounded-xl p-5">
+      <div className="bg-card border border-line/10 rounded-xl p-5">
         <p className="text-sm mb-2">{t("syncCalendarTitle")}</p>
         <p className="text-chalkDim text-xs mb-3">{t("syncCalendarBody")}</p>
         <div className="flex gap-2">
@@ -84,7 +84,7 @@ export default function ClassesPage() {
             readOnly
             value={calendarUrl}
             onFocus={(e) => e.target.select()}
-            className="flex-1 bg-ink border border-white/10 rounded-lg px-3 py-2 text-xs text-chalkDim outline-none"
+            className="flex-1 bg-ink border border-line/10 rounded-lg px-3 py-2 text-xs text-chalkDim outline-none"
           />
           <button
             onClick={copyCalendarLink}

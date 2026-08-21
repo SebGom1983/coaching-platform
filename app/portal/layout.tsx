@@ -7,6 +7,7 @@ import { auth } from "@/lib/firebase";
 import { useAuth } from "@/lib/auth-context";
 import { useLang } from "@/lib/i18n";
 import LangToggle from "../components/LangToggle";
+import ThemeToggle from "../components/ThemeToggle";
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
   const { user, loading: authLoading } = useAuth();
@@ -32,12 +33,15 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
 
   return (
     <div className="grid md:grid-cols-[240px_1fr] min-h-screen">
-      <aside className="bg-ink2 border-r border-white/10 p-6 flex flex-col">
+      <aside className="bg-ink2 border-r border-line/10 p-6 flex flex-col">
         <div className="flex items-center justify-between mb-10">
           <div className="font-serif font-semibold">
             Seb<span className="text-gold">.</span>
           </div>
-          <LangToggle />
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <LangToggle />
+          </div>
         </div>
 
         <nav className="flex flex-col gap-1 flex-1 text-sm">
@@ -48,7 +52,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                 key={item.href}
                 href={item.href}
                 className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg transition ${
-                  active ? "bg-gold/10 text-gold font-medium" : "text-chalkDim hover:bg-white/5"
+                  active ? "bg-gold/10 text-gold font-medium" : "text-chalkDim hover:bg-line/5"
                 }`}
               >
                 <span>{item.icon}</span>

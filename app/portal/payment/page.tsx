@@ -15,14 +15,14 @@ export default function PaymentPage() {
     <>
       <h1 className="font-serif text-3xl mb-8">{t("navPayment")}</h1>
 
-      <div className="bg-card border border-white/10 rounded-xl p-5">
+      <div className="bg-card border border-line/10 rounded-xl p-5">
         <p className="text-sm mb-3">{t("paymentTitle")}</p>
         <p className="text-chalkDim text-xs mb-4">{t("paymentBody")}</p>
         <div className="flex flex-col gap-2">
           {PAYMENT_KEYS.map((opt) => (
             <div
               key={opt.bank}
-              className="flex items-center justify-between gap-3 bg-ink border border-white/10 rounded-lg px-3 py-2.5"
+              className="flex items-center justify-between gap-3 bg-ink border border-line/10 rounded-lg px-3 py-2.5"
             >
               <div>
                 <span className="text-sm font-medium">{opt.bank}</span>

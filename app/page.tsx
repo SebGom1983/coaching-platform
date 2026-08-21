@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useLang } from "@/lib/i18n";
 import LangToggle from "./components/LangToggle";
+import ThemeToggle from "./components/ThemeToggle";
 import { getSiteAbout, getClassVideos, SiteAbout, ClassVideo } from "@/lib/firebase";
 
 // Add real testimonials here once you have them.
@@ -36,7 +37,7 @@ export default function Home() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-ink/85 backdrop-blur border-b border-white/10">
+      <header className="sticky top-0 z-50 bg-ink/85 backdrop-blur border-b border-line/10">
         <nav className="max-w-5xl mx-auto flex items-center justify-between px-7 py-5">
           <div className="font-serif font-semibold">
             Seb<span className="text-gold">.</span> English Coaching
@@ -48,6 +49,7 @@ export default function Home() {
             <a href="#pricing">{t("navPricing")}</a>
           </div>
           <div className="flex items-center gap-4">
+            <ThemeToggle />
             <LangToggle />
             <a href="/login" className="text-sm text-chalkDim hover:text-chalk">
               {t("login")}
@@ -60,7 +62,7 @@ export default function Home() {
       </header>
 
       {/* Hero */}
-      <section className="border-b border-white/10 py-28">
+      <section className="border-b border-line/10 py-28">
         <div className="max-w-5xl mx-auto px-7 grid md:grid-cols-2 gap-16 items-center">
           <div>
             <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-5">
@@ -72,7 +74,7 @@ export default function Home() {
               <a href="/login" className="bg-gold text-ink text-sm font-medium px-5 py-2.5 rounded-lg">
                 {t("ctaPlacement")}
               </a>
-              <a href="#method" className="border border-white/10 text-sm font-medium px-5 py-2.5 rounded-lg">
+              <a href="#method" className="border border-line/10 text-sm font-medium px-5 py-2.5 rounded-lg">
                 {t("ctaMethod")}
               </a>
             </div>
@@ -80,7 +82,7 @@ export default function Home() {
 
           <div>
             {about?.heroPhotoUrl ? (
-              <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl aspect-[4/5]">
+              <div className="rounded-2xl overflow-hidden border border-line/10 shadow-2xl aspect-[4/5]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={about.heroPhotoUrl}
@@ -90,7 +92,7 @@ export default function Home() {
                 />
               </div>
             ) : (
-              <div className="bg-card border border-white/10 rounded-2xl p-6 shadow-2xl">
+              <div className="bg-card border border-line/10 rounded-2xl p-6 shadow-2xl">
                 <div className="flex justify-between items-center mb-4">
                   <span className="font-mono text-xs text-sageSoft bg-sage/15 px-2.5 py-1 rounded-full">
                     AI-GENERATED
@@ -103,9 +105,9 @@ export default function Home() {
                   ["Pronunciación / Pronunciation", "58%"],
                   ["Listening", "82%"],
                 ].map(([label, pct]) => (
-                  <div key={label} className="flex justify-between text-sm text-chalkDim py-2 border-t border-white/10 first:border-t-0">
+                  <div key={label} className="flex justify-between text-sm text-chalkDim py-2 border-t border-line/10 first:border-t-0">
                     <span>{label}</span>
-                    <div className="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden self-center">
+                    <div className="w-24 h-1.5 bg-line/10 rounded-full overflow-hidden self-center">
                       <div className="h-full bg-sageSoft" style={{ width: pct }} />
                     </div>
                   </div>
@@ -117,10 +119,10 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section id="about" className="border-b border-white/10 py-28">
+      <section id="about" className="border-b border-line/10 py-28">
         <div className="max-w-5xl mx-auto px-7 grid md:grid-cols-[1fr_1.3fr] gap-14 items-center">
           {about?.aboutPhotoUrl ? (
-            <div className="rounded-2xl overflow-hidden border border-white/10 aspect-square">
+            <div className="rounded-2xl overflow-hidden border border-line/10 aspect-square">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={about.aboutPhotoUrl}
@@ -130,7 +132,7 @@ export default function Home() {
               />
             </div>
           ) : (
-            <div className="bg-card border border-white/10 rounded-2xl aspect-square flex items-center justify-center text-6xl">
+            <div className="bg-card border border-line/10 rounded-2xl aspect-square flex items-center justify-center text-6xl">
               👋
             </div>
           )}
@@ -172,7 +174,7 @@ export default function Home() {
       </section>
 
       {/* Companies */}
-      <section className="border-b border-white/10 py-16">
+      <section className="border-b border-line/10 py-16">
         <div className="max-w-5xl mx-auto px-7">
           <p className="text-center font-mono text-xs uppercase tracking-widest text-muted mb-8">
             {t("companiesEyebrow")}
@@ -181,7 +183,7 @@ export default function Home() {
             {COMPANIES.map((c) => (
               <span
                 key={c}
-                className="font-serif text-sm text-chalkDim border border-white/10 rounded-full px-4 py-2"
+                className="font-serif text-sm text-chalkDim border border-line/10 rounded-full px-4 py-2"
               >
                 {c}
               </span>
@@ -191,7 +193,7 @@ export default function Home() {
       </section>
 
       {/* Method / philosophy */}
-      <section id="method" className="border-b border-white/10 py-28">
+      <section id="method" className="border-b border-line/10 py-28">
         <div className="max-w-5xl mx-auto px-7">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-3">
@@ -207,7 +209,7 @@ export default function Home() {
               { emoji: "🎯", title: t("pillar2Title"), body: t("pillar2Body") },
               { emoji: "🤖", title: t("pillar3Title"), body: t("pillar3Body") },
             ].map((p) => (
-              <div key={p.title} className="bg-card border border-white/10 rounded-2xl p-8">
+              <div key={p.title} className="bg-card border border-line/10 rounded-2xl p-8">
                 <div className="text-2xl mb-3">{p.emoji}</div>
                 <h3 className="font-serif text-lg mb-2">{p.title}</h3>
                 <p className="text-chalkDim text-sm">{p.body}</p>
@@ -220,7 +222,7 @@ export default function Home() {
       </section>
 
       {/* Real class videos */}
-      <section id="classes" className="border-b border-white/10 py-28">
+      <section id="classes" className="border-b border-line/10 py-28">
         <div className="max-w-5xl mx-auto px-7">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-3">
@@ -230,13 +232,13 @@ export default function Home() {
           </div>
 
           {videos.length === 0 ? (
-            <div className="bg-card border border-white/10 rounded-2xl p-16 text-center text-chalkDim text-sm max-w-xl mx-auto">
+            <div className="bg-card border border-line/10 rounded-2xl p-16 text-center text-chalkDim text-sm max-w-xl mx-auto">
               {t("classesComingSoon")}
             </div>
           ) : (
             <div className="grid md:grid-cols-2 gap-6">
               {videos.map((v) => (
-                <div key={v.id} className="rounded-2xl overflow-hidden border border-white/10">
+                <div key={v.id} className="rounded-2xl overflow-hidden border border-line/10">
                   <div className="aspect-video">
                     <iframe
                       className="w-full h-full"
@@ -255,7 +257,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="border-b border-white/10 py-28">
+      <section className="border-b border-line/10 py-28">
         <div className="max-w-5xl mx-auto px-7">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-3">
@@ -265,13 +267,13 @@ export default function Home() {
           </div>
 
           {TESTIMONIALS.length === 0 ? (
-            <div className="bg-card border border-white/10 rounded-2xl p-16 text-center text-chalkDim text-sm max-w-xl mx-auto">
+            <div className="bg-card border border-line/10 rounded-2xl p-16 text-center text-chalkDim text-sm max-w-xl mx-auto">
               {t("testimonialsComingSoon")}
             </div>
           ) : (
             <div className="grid md:grid-cols-3 gap-5">
               {TESTIMONIALS.map((tst) => (
-                <div key={tst.name} className="bg-card border border-white/10 rounded-2xl p-6">
+                <div key={tst.name} className="bg-card border border-line/10 rounded-2xl p-6">
                   <p className="text-chalkDim text-sm mb-4 italic">&ldquo;{tst.quote}&rdquo;</p>
                   <p className="font-serif text-sm">{tst.name}</p>
                   {tst.role && <p className="text-muted text-xs">{tst.role}</p>}
@@ -283,7 +285,7 @@ export default function Home() {
       </section>
 
       {/* Services */}
-      <section className="border-b border-white/10 py-28">
+      <section className="border-b border-line/10 py-28">
         <div className="max-w-5xl mx-auto px-7">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-3">
@@ -299,7 +301,7 @@ export default function Home() {
               t("service4"),
               t("service5"),
             ].map((s) => (
-              <div key={s} className="bg-card border border-white/10 rounded-xl p-5 text-sm">
+              <div key={s} className="bg-card border border-line/10 rounded-xl p-5 text-sm">
                 {s}
               </div>
             ))}
@@ -308,7 +310,7 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="border-b border-white/10 py-28">
+      <section id="pricing" className="border-b border-line/10 py-28">
         <div className="max-w-5xl mx-auto px-7">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-3">
@@ -317,22 +319,22 @@ export default function Home() {
             <h2 className="font-serif text-3xl">{t("pricingTitle")}</h2>
           </div>
 
-          <div className="bg-card border border-white/10 rounded-2xl p-8 mb-12 max-w-3xl mx-auto text-center">
+          <div className="bg-card border border-line/10 rounded-2xl p-8 mb-12 max-w-3xl mx-auto text-center">
             <h3 className="font-serif text-2xl mb-3">🚀 Tu inglés, sin excusas</h3>
             <p className="text-chalkDim text-sm mb-6 max-w-xl mx-auto">
               La constancia es la clave. Con al menos 3 clases por semana, tu inglés deja de ser
               teoría y se convierte en práctica real. Entre más clases tomes, menos pagas por sesión:
             </p>
             <div className="grid sm:grid-cols-3 gap-4 mb-6">
-              <div className="bg-ink border border-white/10 rounded-xl p-4">
+              <div className="bg-ink border border-line/10 rounded-xl p-4">
                 <div className="font-mono text-xl text-gold mb-1">$60.000</div>
                 <div className="text-chalkDim text-xs">2–3 clases/semana · por hora</div>
               </div>
-              <div className="bg-ink border border-white/10 rounded-xl p-4">
+              <div className="bg-ink border border-line/10 rounded-xl p-4">
                 <div className="font-mono text-xl text-gold mb-1">$55.000</div>
                 <div className="text-chalkDim text-xs">4 clases/semana · por hora</div>
               </div>
-              <div className="bg-ink border border-white/10 rounded-xl p-4">
+              <div className="bg-ink border border-line/10 rounded-xl p-4">
                 <div className="font-mono text-xl text-gold mb-1">$50.000</div>
                 <div className="text-chalkDim text-xs">5 clases/semana · por hora</div>
               </div>
@@ -373,7 +375,7 @@ export default function Home() {
               <div
                 key={p.name}
                 className={`bg-card border rounded-2xl p-8 flex flex-col ${
-                  p.featured ? "border-gold" : "border-white/10"
+                  p.featured ? "border-gold" : "border-line/10"
                 }`}
               >
                 <h4 className="font-serif text-xl mb-1">{p.name}</h4>
@@ -382,7 +384,7 @@ export default function Home() {
                 <a
                   href="/login"
                   className={`text-sm font-medium px-5 py-2.5 rounded-lg text-center ${
-                    p.featured ? "bg-gold text-ink" : "border border-white/10"
+                    p.featured ? "bg-gold text-ink" : "border border-line/10"
                   }`}
                 >
                   {t("bookLesson")}

@@ -1,20 +1,26 @@
 import type { Config } from "tailwindcss";
 
+function themeColor(name: string) {
+  return `rgb(var(--color-${name}) / <alpha-value>)`;
+}
+
 const config: Config = {
+  darkMode: "class",
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        ink: "#14161A",
-        ink2: "#1B1E24",
-        card: "#1F232A",
-        chalk: "#EAE7DF",
-        chalkDim: "#B7B4AC",
-        muted: "#8B8D93",
-        gold: "#C9A227",
-        goldSoft: "#E4C866",
-        sage: "#4F7268",
-        sageSoft: "#7CA093",
+        ink: themeColor("ink"),
+        ink2: themeColor("ink2"),
+        card: themeColor("card"),
+        chalk: themeColor("chalk"),
+        chalkDim: themeColor("chalkDim"),
+        muted: themeColor("muted"),
+        gold: themeColor("gold"),
+        goldSoft: themeColor("goldSoft"),
+        sage: themeColor("sage"),
+        sageSoft: themeColor("sageSoft"),
+        line: themeColor("line"),
       },
       fontFamily: {
         serif: ["Fraunces", "serif"],

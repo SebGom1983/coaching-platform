@@ -91,7 +91,7 @@ export default function MaterialCard({
   }, [material.url, material.thumbnailUrl]);
 
   return (
-    <div className="bg-card border border-white/10 rounded-2xl overflow-hidden hover:border-gold/30 transition">
+    <div className="bg-card border border-line/10 rounded-2xl overflow-hidden hover:border-gold/30 transition">
       {thumbnail ? (
         <a href={material.url} target="_blank" rel="noopener noreferrer" className="block">
           <div className="w-full aspect-video bg-black flex items-center justify-center overflow-hidden">

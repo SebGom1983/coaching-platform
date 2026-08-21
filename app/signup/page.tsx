@@ -39,7 +39,7 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center px-6">
       <form
         onSubmit={handleSubmit}
-        className="bg-card border border-white/10 rounded-2xl p-8 w-full max-w-sm"
+        className="bg-card border border-line/10 rounded-2xl p-8 w-full max-w-sm"
       >
         <div className="font-serif font-semibold text-lg mb-1">
           Seb<span className="text-gold">.</span> Coaching
@@ -52,7 +52,7 @@ export default function SignupPage() {
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
+          className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
         />
 
         <label className="block text-xs text-muted mb-1.5">Correo</label>
@@ -61,7 +61,7 @@ export default function SignupPage() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
+          className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
         />
 
         <label className="block text-xs text-muted mb-1.5">Contraseña</label>
@@ -71,14 +71,14 @@ export default function SignupPage() {
           minLength={6}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
+          className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
         />
 
         <label className="block text-xs text-muted mb-1.5">Tipo de programa</label>
         <select
           value={programType}
           onChange={(e) => setProgramType(e.target.value as ProgramType)}
-          className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-5 text-sm outline-none focus:border-gold"
+          className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 mb-5 text-sm outline-none focus:border-gold"
         >
           <option value="interchange">Interchange (básico / intermedio)</option>
           <option value="business">Business / Conversational</option>

@@ -4,6 +4,7 @@ import { useRouter, useParams } from "next/navigation";
 import { signOut } from "firebase/auth";
 import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
+import ThemeToggle from "../../components/ThemeToggle";
 import {
   auth,
   getUserProfile,
@@ -169,7 +170,7 @@ export default function StudentEditor() {
 
   return (
     <div className="grid md:grid-cols-[240px_1fr] min-h-screen">
-      <aside className="bg-ink2 border-r border-white/10 p-6 flex flex-col">
+      <aside className="bg-ink2 border-r border-line/10 p-6 flex flex-col">
         <div className="font-serif font-semibold mb-10">
           Seb<span className="text-gold">.</span> Coaching
         </div>
@@ -177,10 +178,11 @@ export default function StudentEditor() {
           <Link href="/teacher" className="px-3 py-2.5 rounded-lg text-chalkDim">
             ← Alumnos
           </Link>
-          <Link href="/teacher/content" className="px-3 py-2.5 rounded-lg text-chalkDim hover:bg-white/5">
+          <Link href="/teacher/content" className="px-3 py-2.5 rounded-lg text-chalkDim hover:bg-line/5">
             Contenido del sitio
           </Link>
         </nav>
+        <div className="px-1 mb-2"><ThemeToggle /></div>
         <button onClick={() => signOut(auth)} className="text-left text-xs text-muted px-3 py-2">
           Cerrar sesión
         </button>
@@ -194,7 +196,7 @@ export default function StudentEditor() {
         <p className="text-chalkDim text-sm mb-8">{student?.email}</p>
 
         {/* --- Classes --- */}
-        <form onSubmit={handleClassSubmit} className="bg-card border border-white/10 rounded-2xl p-6 mb-6">
+        <form onSubmit={handleClassSubmit} className="bg-card border border-line/10 rounded-2xl p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-serif text-lg">{editingClassId ? "Editar clase" : "Agendar clase"}</h2>
             {editingClassId && (
@@ -212,7 +214,7 @@ export default function StudentEditor() {
                 required
                 value={classDate}
                 onChange={(e) => setClassDate(e.target.value)}
-                className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gold"
+                className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gold"
               />
             </div>
             <div>
@@ -222,7 +224,7 @@ export default function StudentEditor() {
                 required
                 value={classTime}
                 onChange={(e) => setClassTime(e.target.value)}
-                className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gold"
+                className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gold"
               />
             </div>
           </div>
@@ -234,7 +236,7 @@ export default function StudentEditor() {
             step={15}
             value={classDuration}
             onChange={(e) => setClassDuration(Number(e.target.value))}
-            className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
+            className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
           />
 
           <label className="block text-xs text-muted mb-1.5">Link de Teams (opcional)</label>
@@ -243,7 +245,7 @@ export default function StudentEditor() {
             value={classTeamsLink}
             onChange={(e) => setClassTeamsLink(e.target.value)}
             placeholder="https://teams.microsoft.com/..."
-            className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
+            className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
           />
 
           <label className="block text-xs text-muted mb-1.5">Notas (opcional)</label>
@@ -251,7 +253,7 @@ export default function StudentEditor() {
             value={classNotes}
             onChange={(e) => setClassNotes(e.target.value)}
             rows={2}
-            className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-5 text-sm outline-none focus:border-gold"
+            className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 mb-5 text-sm outline-none focus:border-gold"
           />
 
           <button
@@ -277,7 +279,7 @@ export default function StudentEditor() {
               });
               const timeLabel = d.toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" });
               return (
-                <div key={c.id} className="bg-card border border-white/10 rounded-xl p-5 flex justify-between items-start gap-4">
+                <div key={c.id} className="bg-card border border-line/10 rounded-xl p-5 flex justify-between items-start gap-4">
                   <div>
                     <p className="font-serif capitalize">{dateLabel} — {timeLabel}</p>
                     <p className="text-chalkDim text-sm">{c.durationMinutes} min</p>
@@ -306,7 +308,7 @@ export default function StudentEditor() {
           Tu alumno puede suscribir su calendario para ver estas clases automáticamente desde su portal.
         </p>
 
-        <form onSubmit={handleSubmit} className="bg-card border border-white/10 rounded-2xl p-6 mb-9">
+        <form onSubmit={handleSubmit} className="bg-card border border-line/10 rounded-2xl p-6 mb-9">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-serif text-lg">{editingId ? "Editar material" : "Agregar material"}</h2>
             {editingId && (
@@ -320,7 +322,7 @@ export default function StudentEditor() {
           <select
             value={type}
             onChange={(e) => setType(e.target.value as MaterialType)}
-            className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
+            className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
           >
             <option value="link">Enlace / recurso (TED, artículo, podcast...)</option>
             <option value="video">Video (YouTube, Vimeo...)</option>
@@ -335,7 +337,7 @@ export default function StudentEditor() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Ej: TED Talk — The power of vulnerability"
-            className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
+            className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
           />
 
           {type !== "text" && (
@@ -346,7 +348,7 @@ export default function StudentEditor() {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://..."
-                className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
+                className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
               />
 
               <label className="block text-xs text-muted mb-1.5">
@@ -357,7 +359,7 @@ export default function StudentEditor() {
                 value={thumbnailUrl}
                 onChange={(e) => setThumbnailUrl(e.target.value)}
                 placeholder="https://... (link directo a una imagen .jpg / .png)"
-                className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
+                className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 mb-4 text-sm outline-none focus:border-gold"
               />
               <p className="text-xs text-muted -mt-3 mb-4">
                 Tip: busca la imagen en Google → clic derecho → "Copiar dirección de imagen" → pégala aquí.
@@ -372,7 +374,7 @@ export default function StudentEditor() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
-            className="w-full bg-ink border border-white/10 rounded-lg px-3 py-2.5 mb-5 text-sm outline-none focus:border-gold"
+            className="w-full bg-ink border border-line/10 rounded-lg px-3 py-2.5 mb-5 text-sm outline-none focus:border-gold"
           />
 
           <button

@@ -4,7 +4,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Dark theme (default) */
+:root {
+  --color-ink: 20 22 26;
+  --color-ink2: 27 30 36;
+  --color-card: 31 35 42;
+  --color-chalk: 234 231 223;
+  --color-chalkDim: 183 180 172;
+  --color-muted: 139 141 147;
+  --color-gold: 201 162 39;
+  --color-goldSoft: 228 200 102;
+  --color-sage: 79 114 104;
+  --color-sageSoft: 124 160 147;
+  --color-line: 255 255 255;
+}
+
+/* Light theme */
+html.light {
+  --color-ink: 250 249 246;
+  --color-ink2: 241 239 234;
+  --color-card: 255 255 255;
+  --color-chalk: 30 32 36;
+  --color-chalkDim: 91 94 102;
+  --color-muted: 130 132 138;
+  --color-gold: 176 138 27;
+  --color-goldSoft: 201 162 39;
+  --color-sage: 61 93 84;
+  --color-sageSoft: 79 114 104;
+  --color-line: 20 22 26;
+}
+
 body {
-  background-color: #14161A;
-  color: #EAE7DF;
+  background-color: rgb(var(--color-ink));
+  color: rgb(var(--color-chalk));
+  transition: background-color 0.15s ease, color 0.15s ease;
 }

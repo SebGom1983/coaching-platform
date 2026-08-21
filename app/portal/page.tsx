@@ -49,7 +49,7 @@ export default function PortalDashboard() {
       ) : !nextClass ? (
         <p className="text-chalkDim text-sm mb-9">{t("noUpcomingClass")}</p>
       ) : (
-        <div className="bg-card border border-white/10 rounded-xl p-5 flex justify-between items-center gap-4 mb-9">
+        <div className="bg-card border border-line/10 rounded-xl p-5 flex justify-between items-center gap-4 mb-9">
           <div>
             <p className="font-serif capitalize">
               {new Date(nextClass.startsAt).toLocaleDateString(lang === "es" ? "es-CO" : "en-US", {
@@ -84,7 +84,7 @@ export default function PortalDashboard() {
           <Link
             key={q.href}
             href={q.href}
-            className="bg-card border border-white/10 rounded-xl p-5 hover:border-gold/40 transition flex items-center gap-3"
+            className="bg-card border border-line/10 rounded-xl p-5 hover:border-gold/40 transition flex items-center gap-3"
           >
             <span className="text-xl">{q.icon}</span>
             <span className="text-sm">{q.label}</span>

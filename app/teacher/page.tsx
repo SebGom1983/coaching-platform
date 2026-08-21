@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
+import ThemeToggle from "../components/ThemeToggle";
 import { auth, getAllStudents, UserProfile } from "@/lib/firebase";
 
 const programLabel: Record<string, string> = {
@@ -43,16 +44,17 @@ export default function TeacherDashboard() {
 
   return (
     <div className="grid md:grid-cols-[240px_1fr] min-h-screen">
-      <aside className="bg-ink2 border-r border-white/10 p-6 flex flex-col">
+      <aside className="bg-ink2 border-r border-line/10 p-6 flex flex-col">
         <div className="font-serif font-semibold mb-10">
           Seb<span className="text-gold">.</span> Coaching
         </div>
         <nav className="flex flex-col gap-1 flex-1 text-sm">
           <a className="px-3 py-2.5 rounded-lg bg-gold/10 text-gold font-medium">Alumnos</a>
-          <Link href="/teacher/content" className="px-3 py-2.5 rounded-lg text-chalkDim hover:bg-white/5">
+          <Link href="/teacher/content" className="px-3 py-2.5 rounded-lg text-chalkDim hover:bg-line/5">
             Contenido del sitio
           </Link>
         </nav>
+        <div className="px-1 mb-2"><ThemeToggle /></div>
         <button onClick={() => signOut(auth)} className="text-left text-xs text-muted px-3 py-2">
           Cerrar sesión
         </button>
@@ -67,7 +69,7 @@ export default function TeacherDashboard() {
         {loadingStudents ? (
           <p className="text-chalkDim">Cargando alumnos...</p>
         ) : students.length === 0 ? (
-          <div className="bg-card border border-white/10 rounded-2xl p-6 text-chalkDim text-sm">
+          <div className="bg-card border border-line/10 rounded-2xl p-6 text-chalkDim text-sm">
             Todavía no hay alumnos registrados. Comparte el link de registro con ellos:{" "}
             <code className="text-gold">tu-dominio.com/signup</code>
           </div>
@@ -77,7 +79,7 @@ export default function TeacherDashboard() {
               <Link
                 key={s.uid}
                 href={`/teacher/${s.uid}`}
-                className="bg-card border border-white/10 rounded-2xl p-6 hover:border-gold/50 transition"
+                className="bg-card border border-line/10 rounded-2xl p-6 hover:border-gold/50 transition"
               >
                 <h3 className="font-serif text-lg mb-1">{s.name}</h3>
                 <p className="text-chalkDim text-sm mb-3">{s.email}</p>
