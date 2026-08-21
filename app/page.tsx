@@ -119,11 +119,11 @@ export default function Home() {
       {/* About */}
       <section id="about" className="border-b border-white/10 py-28">
         <div className="max-w-5xl mx-auto px-7 grid md:grid-cols-[1fr_1.3fr] gap-14 items-center">
-          {about?.heroPhotoUrl ? (
+          {about?.aboutPhotoUrl ? (
             <div className="rounded-2xl overflow-hidden border border-white/10 aspect-square">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={about.heroPhotoUrl}
+                src={about.aboutPhotoUrl}
                 alt="Seb"
                 loading="lazy"
                 className="w-full h-full object-cover"

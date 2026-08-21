@@ -211,6 +211,7 @@ export type SiteAbout = {
   instagramUrl: string;
   linkedinUrl: string;
   heroPhotoUrl: string;
+  aboutPhotoUrl: string;
 };
 
 const DEFAULT_ABOUT: SiteAbout = {
@@ -227,6 +228,7 @@ const DEFAULT_ABOUT: SiteAbout = {
   instagramUrl: "https://instagram.com/chefsebasgomez",
   linkedinUrl: "",
   heroPhotoUrl: "",
+  aboutPhotoUrl: "",
 };
 
 export async function getSiteAbout(): Promise<SiteAbout> {
