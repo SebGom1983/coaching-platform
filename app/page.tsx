@@ -118,10 +118,22 @@ export default function Home() {
 
       {/* About */}
       <section id="about" className="border-b border-white/10 py-28">
-            <div className="max-w-5xl mx-auto px-7 grid md:grid-cols-[1fr_1.3fr] gap-14 items-center">
-          <div className="bg-card border border-white/10 rounded-2xl aspect-square flex items-center justify-center text-6xl">
-            👋
-          </div>
+        <div className="max-w-5xl mx-auto px-7 grid md:grid-cols-[1fr_1.3fr] gap-14 items-center">
+          {about?.heroPhotoUrl ? (
+            <div className="rounded-2xl overflow-hidden border border-white/10 aspect-square">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={about.heroPhotoUrl}
+                alt="Seb"
+                loading="lazy"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ) : (
+            <div className="bg-card border border-white/10 rounded-2xl aspect-square flex items-center justify-center text-6xl">
+              👋
+            </div>
+          )}
           <div>
             <span className="block font-mono text-xs uppercase tracking-widest text-sageSoft mb-3">
               {t("aboutEyebrow")}
